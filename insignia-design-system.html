@@ -1,0 +1,1038 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Insignia — Design System</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap');
+
+:root {
+  /* ── BRAND COLOURS ── */
+  --cream:   #f5f0e8;
+  --dark:    #08080c;
+  --accent:  #c8a96e;
+  --muted:   rgba(245,240,232,0.45);
+  --border:  rgba(200,169,110,0.12);
+
+  /* ── DOC CHROME ── */
+  --doc-bg:     #0f0f14;
+  --doc-surface:#16161d;
+  --doc-border: rgba(200,169,110,0.15);
+  --doc-text:   #f5f0e8;
+  --doc-muted:  rgba(245,240,232,0.45);
+}
+
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+body {
+  background: var(--doc-bg);
+  color: var(--doc-text);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  padding: 0 0 6rem;
+}
+
+/* ── PAGE HEADER ── */
+.page-header {
+  border-bottom: 1px solid var(--doc-border);
+  padding: 3rem 4rem 2.5rem;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 2rem;
+}
+.page-header h1 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 3.5rem;
+  letter-spacing: 0.12em;
+  color: var(--cream);
+  line-height: 1;
+}
+.page-header h1 em { color: var(--accent); font-style: normal; }
+.header-meta { text-align: right; }
+.header-meta p { font-size: 0.65rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--doc-muted); line-height: 2; }
+.header-meta strong { color: var(--accent); font-weight: 400; }
+
+/* ── LAYOUT ── */
+.container { max-width: 1100px; margin: 0 auto; padding: 0 4rem; }
+
+/* ── SECTION ── */
+.section { padding: 3.5rem 0 0; }
+.section-label {
+  font-size: 0.58rem;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--doc-border);
+}
+
+/* ── COLOUR SWATCHES ── */
+.swatch-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 1rem;
+}
+.swatch {
+  border-radius: 3px;
+  overflow: hidden;
+  border: 1px solid var(--doc-border);
+}
+.swatch-color {
+  height: 80px;
+}
+.swatch-info {
+  padding: 0.75rem 1rem;
+  background: var(--doc-surface);
+}
+.swatch-name {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--cream);
+  margin-bottom: 0.2rem;
+}
+.swatch-var {
+  font-size: 0.65rem;
+  font-family: 'Courier New', monospace;
+  color: var(--accent);
+  margin-bottom: 0.15rem;
+}
+.swatch-hex {
+  font-size: 0.65rem;
+  font-family: 'Courier New', monospace;
+  color: var(--doc-muted);
+}
+
+/* ── TYPOGRAPHY ── */
+.type-row {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: 1.5rem;
+  align-items: start;
+  padding: 2rem 0;
+  border-bottom: 1px solid var(--doc-border);
+}
+.type-row:last-child { border-bottom: none; }
+.type-meta { padding-top: 0.5rem; }
+.type-meta-name { font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.5rem; }
+.type-meta-detail { font-size: 0.7rem; font-family: 'Courier New', monospace; color: var(--doc-muted); line-height: 2; }
+
+/* ── SPACING ── */
+.spacing-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+.spacing-row {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+.spacing-bar-wrap {
+  flex: 1;
+  height: 24px;
+  background: var(--doc-surface);
+  border: 1px solid var(--doc-border);
+  border-radius: 2px;
+  overflow: hidden;
+}
+.spacing-bar {
+  height: 100%;
+  background: rgba(200,169,110,0.25);
+  border-right: 2px solid var(--accent);
+}
+.spacing-label {
+  font-size: 0.7rem;
+  font-family: 'Courier New', monospace;
+  color: var(--accent);
+  min-width: 80px;
+}
+.spacing-note {
+  font-size: 0.68rem;
+  color: var(--doc-muted);
+  min-width: 140px;
+}
+
+/* ── COMPONENT TOKENS ── */
+.token-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.78rem;
+}
+.token-table th {
+  text-align: left;
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--accent);
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--doc-border);
+  font-weight: 400;
+}
+.token-table td {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid rgba(200,169,110,0.07);
+  vertical-align: top;
+  color: var(--cream);
+}
+.token-table tr:last-child td { border-bottom: none; }
+.token-table td:first-child { color: var(--accent); font-family: 'Courier New', monospace; font-size: 0.72rem; }
+.token-table td:nth-child(2) { color: var(--doc-muted); font-family: 'Courier New', monospace; font-size: 0.72rem; }
+
+/* ── COMPONENT PREVIEW ── */
+.component-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+.component-preview {
+  background: var(--doc-surface);
+  border: 1px solid var(--doc-border);
+  border-radius: 3px;
+  overflow: hidden;
+}
+.component-preview-label {
+  padding: 0.6rem 1rem;
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--doc-muted);
+  border-bottom: 1px solid var(--doc-border);
+}
+.component-preview-inner {
+  padding: 1.5rem;
+}
+
+/* ── GRID SYSTEM ── */
+.grid-diagram {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 8px;
+  margin-top: 1rem;
+}
+.grid-col {
+  height: 40px;
+  background: rgba(200,169,110,0.1);
+  border: 1px solid rgba(200,169,110,0.2);
+  border-radius: 1px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.55rem;
+  color: rgba(200,169,110,0.5);
+}
+.grid-span-example {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 8px;
+  margin-top: 0.75rem;
+}
+.grid-span {
+  height: 28px;
+  background: rgba(200,169,110,0.15);
+  border: 1px solid var(--accent);
+  border-radius: 1px;
+  display: flex;
+  align-items: center;
+  padding: 0 8px;
+  font-size: 0.6rem;
+  color: var(--accent);
+  font-family: 'Courier New', monospace;
+}
+
+/* ── MOTION ── */
+.motion-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+.motion-row {
+  display: grid;
+  grid-template-columns: 180px 220px 1fr;
+  gap: 1.5rem;
+  padding: 1rem 0;
+  border-bottom: 1px solid rgba(200,169,110,0.07);
+  align-items: center;
+}
+.motion-row:last-child { border-bottom: none; }
+.motion-name { font-size: 0.72rem; font-family: 'Courier New', monospace; color: var(--accent); }
+.motion-value { font-size: 0.72rem; font-family: 'Courier New', monospace; color: var(--doc-muted); }
+.motion-use { font-size: 0.72rem; color: var(--cream); opacity: 0.7; }
+
+/* ── FIGMA EXPORT NOTES ── */
+.export-block {
+  background: var(--doc-surface);
+  border: 1px solid var(--doc-border);
+  border-left: 3px solid var(--accent);
+  border-radius: 2px;
+  padding: 1.25rem 1.5rem;
+  margin-top: 1rem;
+}
+.export-block h4 {
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 0.75rem;
+  font-weight: 400;
+}
+.export-block ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+.export-block li {
+  font-size: 0.78rem;
+  color: var(--doc-muted);
+  padding-left: 1rem;
+  position: relative;
+}
+.export-block li::before {
+  content: '→';
+  position: absolute;
+  left: 0;
+  color: var(--accent);
+  font-size: 0.7rem;
+}
+
+/* ── FONT SAMPLES ── */
+.font-sample-bebas {
+  font-family: 'Bebas Neue', sans-serif;
+  color: var(--cream);
+  letter-spacing: 0.06em;
+  line-height: 0.9;
+}
+.font-sample-dm {
+  font-family: 'DM Sans', sans-serif;
+  color: var(--cream);
+  line-height: 1.7;
+}
+
+/* ── NAV PREVIEW ── */
+.nav-preview {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.2rem 2rem;
+  background: rgba(8,8,12,0.7);
+  border: 1px solid var(--border);
+  border-radius: 2px;
+}
+.nav-preview-name {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.4rem;
+  letter-spacing: 0.2em;
+  color: var(--cream);
+}
+.nav-preview-section {
+  font-size: 0.62rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+/* ── CARD PREVIEW ── */
+.card-preview {
+  background: rgba(255,255,255,0.02);
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  overflow: hidden;
+}
+.card-preview-img {
+  width: 100%;
+  height: 140px;
+  background: linear-gradient(135deg, rgba(200,169,110,0.08) 0%, rgba(8,8,12,0.8) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.card-preview-img-label {
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(200,169,110,0.4);
+}
+.card-preview-body {
+  padding: 1rem 1.25rem 1.25rem;
+}
+.card-preview-cat {
+  font-size: 0.55rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 0.3rem;
+}
+.card-preview-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.6rem;
+  letter-spacing: 0.06em;
+  color: var(--cream);
+  line-height: 0.95;
+}
+
+/* ── BADGE ── */
+.badge-preview {
+  display: inline-block;
+  font-size: 0.52rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--accent);
+  background: rgba(8,8,12,0.75);
+  padding: 0.3rem 0.7rem;
+  border-radius: 1px;
+  border: 1px solid rgba(200,169,110,0.25);
+}
+
+/* ── DIVIDER ── */
+.divider {
+  border: none;
+  border-top: 1px solid var(--doc-border);
+  margin: 0;
+}
+
+/* ── TWO COL ── */
+.two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+
+@media (max-width: 700px) {
+  .page-header { padding: 2rem; flex-direction: column; align-items: flex-start; }
+  .container { padding: 0 1.5rem; }
+  .type-row { grid-template-columns: 1fr; }
+  .two-col { grid-template-columns: 1fr; }
+  .motion-row { grid-template-columns: 1fr; gap: 0.25rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- PAGE HEADER -->
+<header class="page-header">
+  <div>
+    <h1>Insig<em>nia</em></h1>
+    <p style="font-size:0.65rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--doc-muted);margin-top:0.5rem;">Design System · Jason Stone · 2026</p>
+  </div>
+  <div class="header-meta">
+    <p>Source <strong>jaygosub/insignia</strong></p>
+    <p>Stack <strong>HTML · CSS · Vanilla JS</strong></p>
+    <p>Fonts <strong>Bebas Neue · DM Sans</strong></p>
+    <p>Version <strong>main branch</strong></p>
+  </div>
+</header>
+
+<div class="container">
+
+  <!-- ── COLOUR ── -->
+  <section class="section">
+    <p class="section-label">01 — Colour Tokens</p>
+    <div class="swatch-grid">
+
+      <div class="swatch">
+        <div class="swatch-color" style="background:#08080c;"></div>
+        <div class="swatch-info">
+          <p class="swatch-name">Dark</p>
+          <p class="swatch-var">--dark</p>
+          <p class="swatch-hex">#08080c</p>
+          <p style="font-size:0.65rem;color:var(--doc-muted);margin-top:0.3rem;">Page background</p>
+        </div>
+      </div>
+
+      <div class="swatch">
+        <div class="swatch-color" style="background:#f5f0e8;border-bottom:1px solid rgba(200,169,110,0.2);"></div>
+        <div class="swatch-info">
+          <p class="swatch-name">Cream</p>
+          <p class="swatch-var">--cream</p>
+          <p class="swatch-hex">#f5f0e8</p>
+          <p style="font-size:0.65rem;color:var(--doc-muted);margin-top:0.3rem;">Primary text, headings</p>
+        </div>
+      </div>
+
+      <div class="swatch">
+        <div class="swatch-color" style="background:#c8a96e;"></div>
+        <div class="swatch-info">
+          <p class="swatch-name">Accent Gold</p>
+          <p class="swatch-var">--accent</p>
+          <p class="swatch-hex">#c8a96e</p>
+          <p style="font-size:0.65rem;color:var(--doc-muted);margin-top:0.3rem;">Labels, highlights, borders</p>
+        </div>
+      </div>
+
+      <div class="swatch">
+        <div class="swatch-color" style="background:rgba(245,240,232,0.45);"></div>
+        <div class="swatch-info">
+          <p class="swatch-name">Muted</p>
+          <p class="swatch-var">--muted</p>
+          <p class="swatch-hex">rgba(245,240,232,0.45)</p>
+          <p style="font-size:0.65rem;color:var(--doc-muted);margin-top:0.3rem;">Body copy, secondary text</p>
+        </div>
+      </div>
+
+      <div class="swatch">
+        <div class="swatch-color" style="background:rgba(200,169,110,0.12);"></div>
+        <div class="swatch-info">
+          <p class="swatch-name">Border</p>
+          <p class="swatch-var">--border</p>
+          <p class="swatch-hex">rgba(200,169,110,0.12)</p>
+          <p style="font-size:0.65rem;color:var(--doc-muted);margin-top:0.3rem;">Dividers, card outlines</p>
+        </div>
+      </div>
+
+      <div class="swatch">
+        <div class="swatch-color" style="background:rgba(200,169,110,0.35);"></div>
+        <div class="swatch-info">
+          <p class="swatch-name">Border Hover</p>
+          <p class="swatch-var">—</p>
+          <p class="swatch-hex">rgba(200,169,110,0.35)</p>
+          <p style="font-size:0.65rem;color:var(--doc-muted);margin-top:0.3rem;">Card border on hover</p>
+        </div>
+      </div>
+
+      <div class="swatch">
+        <div class="swatch-color" style="background:rgba(8,8,12,0.7);backdrop-filter:blur(14px);"></div>
+        <div class="swatch-info">
+          <p class="swatch-name">Nav Blur</p>
+          <p class="swatch-var">—</p>
+          <p class="swatch-hex">rgba(8,8,12,0.7) + blur(14px)</p>
+          <p style="font-size:0.65rem;color:var(--doc-muted);margin-top:0.3rem;">Scrolled nav state</p>
+        </div>
+      </div>
+
+      <div class="swatch">
+        <div class="swatch-color" style="background:rgba(255,255,255,0.02);"></div>
+        <div class="swatch-info">
+          <p class="swatch-name">Card Surface</p>
+          <p class="swatch-var">—</p>
+          <p class="swatch-hex">rgba(255,255,255,0.02)</p>
+          <p style="font-size:0.65rem;color:var(--doc-muted);margin-top:0.3rem;">Project card background</p>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="export-block" style="margin-top:1.5rem;">
+      <h4>Figma — Colour Styles to create</h4>
+      <ul>
+        <li>Brand/Dark — #08080c</li>
+        <li>Brand/Cream — #f5f0e8</li>
+        <li>Brand/Accent Gold — #c8a96e</li>
+        <li>Brand/Muted — cream at 45% opacity</li>
+        <li>Border/Default — accent at 12% opacity</li>
+        <li>Border/Hover — accent at 35% opacity</li>
+        <li>Surface/Card — white at 2% opacity</li>
+        <li>Surface/Nav — dark at 70% opacity</li>
+      </ul>
+    </div>
+  </section>
+
+  <hr class="divider" style="margin-top:3.5rem;">
+
+  <!-- ── TYPOGRAPHY ── -->
+  <section class="section">
+    <p class="section-label">02 — Typography</p>
+
+    <div class="type-row">
+      <div class="type-meta">
+        <p class="type-meta-name">Display / Hero</p>
+        <p class="type-meta-detail">
+          font: Bebas Neue<br>
+          size: clamp(5rem, 16vw, 14rem)<br>
+          weight: 400 (only weight)<br>
+          tracking: 0.02em<br>
+          line-height: 0.88<br>
+          colour: --cream
+        </p>
+      </div>
+      <div>
+        <p class="font-sample-bebas" style="font-size:clamp(3rem,8vw,6rem);">Insignia</p>
+      </div>
+    </div>
+
+    <div class="type-row">
+      <div class="type-meta">
+        <p class="type-meta-name">Section Heading</p>
+        <p class="type-meta-detail">
+          font: Bebas Neue<br>
+          size: clamp(2rem, 4vw, 3.5rem)<br>
+          weight: 400<br>
+          tracking: 0.06em<br>
+          line-height: 1<br>
+          colour: --cream
+        </p>
+      </div>
+      <div>
+        <p class="font-sample-bebas" style="font-size:clamp(1.8rem,4vw,3rem);">The Work</p>
+      </div>
+    </div>
+
+    <div class="type-row">
+      <div class="type-meta">
+        <p class="type-meta-name">Card Title</p>
+        <p class="type-meta-detail">
+          font: Bebas Neue<br>
+          size: clamp(1.3rem, 2.5vw, 1.9rem)<br>
+          weight: 400<br>
+          tracking: 0.06em<br>
+          line-height: 0.95<br>
+          colour: --cream / --accent on hover
+        </p>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:0.5rem;padding-top:0.5rem;">
+        <p class="font-sample-bebas" style="font-size:1.8rem;">Coldstream Guards</p>
+        <p class="font-sample-bebas" style="font-size:1.8rem;color:var(--accent);">Coldstream Guards</p>
+        <p style="font-size:0.65rem;color:var(--doc-muted);margin-top:0.25rem;">Default · Hover</p>
+      </div>
+    </div>
+
+    <div class="type-row">
+      <div class="type-meta">
+        <p class="type-meta-name">Nav Logo</p>
+        <p class="type-meta-detail">
+          font: Bebas Neue<br>
+          size: 1.5rem<br>
+          tracking: 0.2em<br>
+          colour: --cream, opacity 0.9
+        </p>
+      </div>
+      <div style="padding-top:0.5rem;">
+        <p class="font-sample-bebas" style="font-size:1.5rem;letter-spacing:0.2em;opacity:0.9;">Jason Stone</p>
+      </div>
+    </div>
+
+    <div class="type-row">
+      <div class="type-meta">
+        <p class="type-meta-name">Body / Descriptor</p>
+        <p class="type-meta-detail">
+          font: DM Sans<br>
+          size: clamp(0.9rem, 1.4vw, 1.05rem)<br>
+          weight: 300<br>
+          line-height: 1.8<br>
+          colour: --muted
+        </p>
+      </div>
+      <div style="padding-top:0.5rem;max-width:420px;">
+        <p class="font-sample-dm" style="font-size:0.95rem;font-weight:300;color:var(--muted);">The essence of order and recognition. A visible mark that indicates togetherness — military insignia as the purest expression of identity, belonging, and craft.</p>
+      </div>
+    </div>
+
+    <div class="type-row">
+      <div class="type-meta">
+        <p class="type-meta-name">Label / Eyebrow</p>
+        <p class="type-meta-detail">
+          font: DM Sans<br>
+          size: 0.55–0.65rem<br>
+          weight: 400<br>
+          tracking: 0.25–0.35em<br>
+          text-transform: uppercase<br>
+          colour: --accent
+        </p>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:0.75rem;padding-top:0.75rem;">
+        <p style="font-size:0.62rem;letter-spacing:0.35em;text-transform:uppercase;color:var(--accent);">Jason Stone · Selected Works · Insignia</p>
+        <p style="font-size:0.55rem;letter-spacing:0.28em;text-transform:uppercase;color:var(--accent);">British Army · 1650–present</p>
+        <p style="font-size:0.6rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--doc-muted);">07 Projects</p>
+      </div>
+    </div>
+
+    <div class="export-block">
+      <h4>Figma — Text Styles to create</h4>
+      <ul>
+        <li>Display/Hero — Bebas Neue 140px / L-H 0.88 / LS 2%</li>
+        <li>Display/Section — Bebas Neue 56px / L-H 1 / LS 6%</li>
+        <li>Display/Card — Bebas Neue 30px / L-H 0.95 / LS 6%</li>
+        <li>Display/Nav — Bebas Neue 24px / L-H 1 / LS 20%</li>
+        <li>Body/Regular — DM Sans 300 16px / L-H 1.8</li>
+        <li>Label/Accent — DM Sans 400 10px / L-H 1 / LS 28% / uppercase</li>
+        <li>Label/Muted — DM Sans 400 10px / L-H 1 / LS 25% / uppercase</li>
+        <li>Meta/Value — Bebas Neue 22px / L-H 1 / LS 10%</li>
+      </ul>
+    </div>
+  </section>
+
+  <hr class="divider" style="margin-top:3.5rem;">
+
+  <!-- ── SPACING ── -->
+  <section class="section">
+    <p class="section-label">03 — Spacing Scale</p>
+    <div class="spacing-grid">
+
+      <div class="spacing-row">
+        <span class="spacing-label">0.25rem / 4px</span>
+        <div class="spacing-bar-wrap"><div class="spacing-bar" style="width:2%"></div></div>
+        <span class="spacing-note">Gap between meta items</span>
+      </div>
+      <div class="spacing-row">
+        <span class="spacing-label">0.4rem / 6px</span>
+        <div class="spacing-bar-wrap"><div class="spacing-bar" style="width:3%"></div></div>
+        <span class="spacing-note">Category → title gap</span>
+      </div>
+      <div class="spacing-row">
+        <span class="spacing-label">0.6rem / 10px</span>
+        <div class="spacing-bar-wrap"><div class="spacing-bar" style="width:4%"></div></div>
+        <span class="spacing-note">Scroll indicator gap</span>
+      </div>
+      <div class="spacing-row">
+        <span class="spacing-label">1rem / 16px</span>
+        <div class="spacing-bar-wrap"><div class="spacing-bar" style="width:7%"></div></div>
+        <span class="spacing-note">Card top badge offset</span>
+      </div>
+      <div class="spacing-row">
+        <span class="spacing-label">1.25rem / 20px</span>
+        <div class="spacing-bar-wrap"><div class="spacing-bar" style="width:8%"></div></div>
+        <span class="spacing-note">Card info horizontal padding</span>
+      </div>
+      <div class="spacing-row">
+        <span class="spacing-label">1.5rem / 24px</span>
+        <div class="spacing-bar-wrap"><div class="spacing-bar" style="width:11%"></div></div>
+        <span class="spacing-note">Grid gap, hero descriptor gap</span>
+      </div>
+      <div class="spacing-row">
+        <span class="spacing-label">2rem / 32px</span>
+        <div class="spacing-bar-wrap"><div class="spacing-bar" style="width:14%"></div></div>
+        <span class="spacing-note">Nav padding, hero gap</span>
+      </div>
+      <div class="spacing-row">
+        <span class="spacing-label">2.5rem / 40px</span>
+        <div class="spacing-bar-wrap"><div class="spacing-bar" style="width:17%"></div></div>
+        <span class="spacing-note">Hero title → descriptor</span>
+      </div>
+      <div class="spacing-row">
+        <span class="spacing-label">3rem / 48px</span>
+        <div class="spacing-bar-wrap"><div class="spacing-bar" style="width:21%"></div></div>
+        <span class="spacing-note">Nav padding, footer padding</span>
+      </div>
+      <div class="spacing-row">
+        <span class="spacing-label">3.5rem / 56px</span>
+        <div class="spacing-bar-wrap"><div class="spacing-bar" style="width:25%"></div></div>
+        <span class="spacing-note">Hero meta top margin</span>
+      </div>
+      <div class="spacing-row">
+        <span class="spacing-label">6rem / 96px</span>
+        <div class="spacing-bar-wrap"><div class="spacing-bar" style="width:43%"></div></div>
+        <span class="spacing-note">Hero bottom padding</span>
+      </div>
+      <div class="spacing-row">
+        <span class="spacing-label">8rem / 128px</span>
+        <div class="spacing-bar-wrap"><div class="spacing-bar" style="width:57%"></div></div>
+        <span class="spacing-note">Grid section bottom padding</span>
+      </div>
+
+    </div>
+  </section>
+
+  <hr class="divider" style="margin-top:3.5rem;">
+
+  <!-- ── GRID ── -->
+  <section class="section">
+    <p class="section-label">04 — Grid System</p>
+
+    <p style="font-size:0.78rem;color:var(--doc-muted);margin-bottom:1.25rem;">12-column grid · Gap 1.5rem (24px) · Max-width 1300px · Padding 3rem (48px) sides</p>
+
+    <div class="grid-diagram">
+      <div class="grid-col">1</div><div class="grid-col">2</div><div class="grid-col">3</div>
+      <div class="grid-col">4</div><div class="grid-col">5</div><div class="grid-col">6</div>
+      <div class="grid-col">7</div><div class="grid-col">8</div><div class="grid-col">9</div>
+      <div class="grid-col">10</div><div class="grid-col">11</div><div class="grid-col">12</div>
+    </div>
+
+    <p style="font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--accent);margin-top:1.5rem;margin-bottom:0.5rem;">Project Card Layout Pattern</p>
+
+    <div class="grid-span-example">
+      <div class="grid-span" style="grid-column:span 5;">span 5 — Card 1</div>
+      <div class="grid-span" style="grid-column:span 7;background:rgba(200,169,110,0.08);">span 7 — Card 2</div>
+    </div>
+    <div class="grid-span-example" style="margin-top:6px;">
+      <div class="grid-span" style="grid-column:span 7;background:rgba(200,169,110,0.08);">span 7 — Card 3</div>
+      <div class="grid-span" style="grid-column:span 5;">span 5 — Card 4</div>
+    </div>
+    <div class="grid-span-example" style="margin-top:6px;">
+      <div class="grid-span" style="grid-column:span 4;background:rgba(200,169,110,0.08);">span 4 — Card 5</div>
+      <div class="grid-span" style="grid-column:span 4;">span 4 — Card 6</div>
+      <div class="grid-span" style="grid-column:span 4;background:rgba(200,169,110,0.08);">span 4 — Card 7</div>
+    </div>
+
+    <p style="font-size:0.68rem;color:var(--doc-muted);margin-top:1rem;">Breakpoint ≤900px: all cards → span 12 (single column). Page padding reduces to 1.5rem.</p>
+  </section>
+
+  <hr class="divider" style="margin-top:3.5rem;">
+
+  <!-- ── COMPONENTS ── -->
+  <section class="section">
+    <p class="section-label">05 — Components</p>
+
+    <div class="component-grid">
+
+      <!-- NAV -->
+      <div class="component-preview">
+        <p class="component-preview-label">Navigation Bar</p>
+        <div class="component-preview-inner">
+          <div class="nav-preview">
+            <span class="nav-preview-name">Jason Stone</span>
+            <span class="nav-preview-section">Insignia</span>
+          </div>
+          <p style="font-size:0.65rem;color:var(--doc-muted);margin-top:0.75rem;">Fixed · z-index 100 · Transparent → frosted glass on scroll · Backdrop blur 14px</p>
+        </div>
+      </div>
+
+      <!-- CARD -->
+      <div class="component-preview">
+        <p class="component-preview-label">Project Card</p>
+        <div class="component-preview-inner">
+          <div class="card-preview">
+            <div style="position:relative;">
+              <span class="badge-preview" style="position:absolute;top:0.6rem;left:0.6rem;z-index:2;">Family History</span>
+              <div class="card-preview-img"><span class="card-preview-img-label">16:9 or 4:3 image</span></div>
+            </div>
+            <div class="card-preview-body">
+              <p class="card-preview-cat">British Army · 1650–present</p>
+              <p class="card-preview-title">Coldstream Guards</p>
+            </div>
+          </div>
+          <p style="font-size:0.65rem;color:var(--doc-muted);margin-top:0.75rem;">border-radius: 2px · Hover: border gold 35%, image scale 1.04, title → accent</p>
+        </div>
+      </div>
+
+      <!-- BADGE -->
+      <div class="component-preview">
+        <p class="component-preview-label">Family / Tag Badge</p>
+        <div class="component-preview-inner" style="display:flex;flex-direction:column;gap:0.75rem;">
+          <span class="badge-preview">Family History</span>
+          <span class="badge-preview">Commission</span>
+          <span class="badge-preview">Personal</span>
+          <p style="font-size:0.65rem;color:var(--doc-muted);margin-top:0.25rem;">0.52rem · tracking 0.2em · bg dark 75% + blur 6px · border accent 25%</p>
+        </div>
+      </div>
+
+      <!-- ENTER ARROW -->
+      <div class="component-preview">
+        <p class="component-preview-label">Card Enter Button</p>
+        <div class="component-preview-inner" style="display:flex;align-items:center;gap:1.5rem;">
+          <div style="width:32px;height:32px;border:1px solid rgba(200,169,110,0.2);border-radius:50%;display:flex;align-items:center;justify-content:center;">
+            <svg width="12" height="12" viewBox="0 0 24 24" stroke="#c8a96e" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </div>
+          <div style="width:32px;height:32px;border:1px solid rgba(200,169,110,0.5);border-radius:50%;display:flex;align-items:center;justify-content:center;">
+            <svg width="12" height="12" viewBox="0 0 24 24" stroke="#c8a96e" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </div>
+          <p style="font-size:0.65rem;color:var(--doc-muted);">Default · Hover<br>32×32px · circular</p>
+        </div>
+      </div>
+
+      <!-- HERO DESCRIPTOR -->
+      <div class="component-preview">
+        <p class="component-preview-label">Hero Descriptor Block</p>
+        <div class="component-preview-inner">
+          <div style="display:grid;grid-template-columns:2px 1fr;gap:0 1rem;align-items:start;">
+            <div style="width:2px;height:100%;background:var(--accent);"></div>
+            <p style="font-size:0.8rem;line-height:1.8;color:var(--muted);font-weight:300;">The essence of order and recognition. A visible mark that indicates togetherness.</p>
+          </div>
+          <p style="font-size:0.65rem;color:var(--doc-muted);margin-top:0.75rem;">2px accent left border · grid-gap 1.5rem · DM Sans 300</p>
+        </div>
+      </div>
+
+      <!-- META STATS -->
+      <div class="component-preview">
+        <p class="component-preview-label">Hero Meta Stats</p>
+        <div class="component-preview-inner">
+          <div style="display:flex;gap:2rem;padding-top:1.5rem;border-top:1px solid var(--border);">
+            <div>
+              <p style="font-size:0.55rem;letter-spacing:0.28em;text-transform:uppercase;color:rgba(200,169,110,0.5);margin-bottom:0.25rem;">Projects</p>
+              <p style="font-family:'Bebas Neue',sans-serif;font-size:1.4rem;letter-spacing:0.1em;color:var(--cream);line-height:1;">07</p>
+            </div>
+            <div>
+              <p style="font-size:0.55rem;letter-spacing:0.28em;text-transform:uppercase;color:rgba(200,169,110,0.5);margin-bottom:0.25rem;">Type</p>
+              <p style="font-family:'Bebas Neue',sans-serif;font-size:1.4rem;letter-spacing:0.1em;color:var(--cream);line-height:1;">Personal</p>
+            </div>
+          </div>
+          <p style="font-size:0.65rem;color:var(--doc-muted);margin-top:0.75rem;">Border-top accent 12% · label at 50% accent opacity</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <hr class="divider" style="margin-top:3.5rem;">
+
+  <!-- ── MOTION ── -->
+  <section class="section">
+    <p class="section-label">06 — Motion &amp; Animation</p>
+    <div class="motion-list">
+
+      <div class="motion-row">
+        <span class="motion-name">fade-up</span>
+        <span class="motion-value">0→1 opacity, Y+20px→0 · ease · 0.8–0.9s</span>
+        <span class="motion-use">Hero elements on load — staggered delays 0.3s → 1s</span>
+      </div>
+      <div class="motion-row">
+        <span class="motion-name">fade-in</span>
+        <span class="motion-value">0→1 opacity · ease · 1s · delay 1.4s</span>
+        <span class="motion-use">Hero scroll indicator on load</span>
+      </div>
+      <div class="motion-row">
+        <span class="motion-name">card reveal</span>
+        <span class="motion-value">0→1 opacity, Y+24px→0 · ease · 0.7s</span>
+        <span class="motion-use">IntersectionObserver · threshold 0.08 · delays 0.05–0.20s</span>
+      </div>
+      <div class="motion-row">
+        <span class="motion-name">image scale</span>
+        <span class="motion-value">scale(1)→scale(1.04) · cubic-bezier(0.25,0.46,0.45,0.94) · 0.7s</span>
+        <span class="motion-use">Card image on hover</span>
+      </div>
+      <div class="motion-row">
+        <span class="motion-name">image filter</span>
+        <span class="motion-value">brightness(0.85) sat(0.9) → brightness(1) sat(1) · ease · 0.4s</span>
+        <span class="motion-use">Card image on hover</span>
+      </div>
+      <div class="motion-row">
+        <span class="motion-name">card overlay</span>
+        <span class="motion-value">opacity 1→0 · ease · 0.4s</span>
+        <span class="motion-use">Dark overlay on card image fades on hover</span>
+      </div>
+      <div class="motion-row">
+        <span class="motion-name">enter button</span>
+        <span class="motion-value">opacity 0→1, scale(0.8)→scale(1) · ease · 0.3s</span>
+        <span class="motion-use">Arrow circle appears on card hover</span>
+      </div>
+      <div class="motion-row">
+        <span class="motion-name">nav transition</span>
+        <span class="motion-value">background + border + backdrop-filter · ease · 0.4s</span>
+        <span class="motion-use">Nav scrolled state triggers at scrollY > 60px</span>
+      </div>
+      <div class="motion-row">
+        <span class="motion-name">scroll-line</span>
+        <span class="motion-value">scaleY 0→1→0 (top then bottom origin) · ease-in-out · 2s · infinite</span>
+        <span class="motion-use">Animated scroll indicator line</span>
+      </div>
+      <div class="motion-row">
+        <span class="motion-name">grid-fade</span>
+        <span class="motion-value">opacity 0→1 · ease · 3s · forwards</span>
+        <span class="motion-use">Hero background grid lines fade in on load</span>
+      </div>
+
+    </div>
+  </section>
+
+  <hr class="divider" style="margin-top:3.5rem;">
+
+  <!-- ── BORDER RADIUS ── -->
+  <section class="section">
+    <p class="section-label">07 — Border Radius &amp; Borders</p>
+    <div class="two-col">
+      <div>
+        <p class="type-meta-name" style="font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--accent);margin-bottom:1rem;">Border Radius</p>
+        <table class="token-table">
+          <tr><td>1px</td><td>—</td><td>Badge, family tag</td></tr>
+          <tr><td>2px</td><td>—</td><td>Project card, nav cards</td></tr>
+          <tr><td>50%</td><td>—</td><td>Enter arrow button (circle)</td></tr>
+        </table>
+      </div>
+      <div>
+        <p class="type-meta-name" style="font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--accent);margin-bottom:1rem;">Border Styles</p>
+        <table class="token-table">
+          <tr><td>1px solid --border</td><td>rgba(200,169,110,0.12)</td><td>Cards, dividers, nav scrolled</td></tr>
+          <tr><td>1px solid --border hover</td><td>rgba(200,169,110,0.35)</td><td>Card hover state</td></tr>
+          <tr><td>1px solid accent 25%</td><td>rgba(200,169,110,0.25)</td><td>Badge outline</td></tr>
+          <tr><td>2px solid --accent</td><td>#c8a96e</td><td>Hero descriptor left rule</td></tr>
+          <tr><td>1px solid accent 20%</td><td>rgba(200,169,110,0.2)</td><td>Enter button default</td></tr>
+          <tr><td>1px solid accent 50%</td><td>rgba(200,169,110,0.5)</td><td>Enter button hover</td></tr>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider" style="margin-top:3.5rem;">
+
+  <!-- ── EFFECTS ── -->
+  <section class="section">
+    <p class="section-label">08 — Effects &amp; Overlays</p>
+    <table class="token-table" style="margin-top:0.5rem;">
+      <thead><tr><th>Effect</th><th>Value</th><th>Usage</th></tr></thead>
+      <tbody>
+        <tr><td>Noise texture</td><td>SVG fractalNoise · baseFreq 0.9 · 4 octaves · opacity 0.35</td><td>Full-screen fixed overlay, z-index 1000</td></tr>
+        <tr><td>Hero grid</td><td>Linear-gradient lines 80px · accent 4% opacity · radial mask</td><td>Hero section background pattern</td></tr>
+        <tr><td>Hero glow</td><td>Radial-gradient ellipse 80vw × 60vh · accent 6% at bottom centre</td><td>Hero atmospheric glow</td></tr>
+        <tr><td>Card overlay</td><td>rgba(8,8,12,0.3) absolute inset</td><td>Dims card images by default, fades on hover</td></tr>
+        <tr><td>Nav blur</td><td>backdrop-filter: blur(14px) · -webkit- prefixed</td><td>Scrolled nav frosted glass</td></tr>
+        <tr><td>Badge blur</td><td>backdrop-filter: blur(6px)</td><td>Family history badge on cards</td></tr>
+        <tr><td>Default image filter</td><td>brightness(0.85) saturate(0.9)</td><td>All card images at rest</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <hr class="divider" style="margin-top:3.5rem;">
+
+  <!-- ── FIGMA CHECKLIST ── -->
+  <section class="section">
+    <p class="section-label">09 — Figma Setup Checklist</p>
+    <div class="two-col" style="margin-top:0.5rem;">
+      <div class="export-block">
+        <h4>1. Install fonts</h4>
+        <ul>
+          <li>Bebas Neue — Google Fonts (free)</li>
+          <li>DM Sans — Google Fonts (free), weights 300 · 400 · 500</li>
+          <li>DM Sans Italic 300 (hero descriptor optional)</li>
+        </ul>
+      </div>
+      <div class="export-block">
+        <h4>2. Local variables / colour styles</h4>
+        <ul>
+          <li>8 colour tokens from Section 01</li>
+          <li>Group under "Insignia/" prefix</li>
+          <li>Set Dark as page fill in frames</li>
+        </ul>
+      </div>
+      <div class="export-block">
+        <h4>3. Text styles</h4>
+        <ul>
+          <li>8 text styles from Section 02</li>
+          <li>Group under "Insignia/" prefix</li>
+          <li>Note: Bebas Neue has only 1 weight</li>
+        </ul>
+      </div>
+      <div class="export-block">
+        <h4>4. Frame sizes</h4>
+        <ul>
+          <li>Desktop: 1440 × 900 (primary)</li>
+          <li>Tablet: 900 × 1024 (breakpoint)</li>
+          <li>Mobile: 390 × 844</li>
+          <li>Max content width: 1300px centred</li>
+        </ul>
+      </div>
+      <div class="export-block">
+        <h4>5. Grid setup (Figma layout grid)</h4>
+        <ul>
+          <li>Columns: 12 · Gutter: 24px · Margin: 48px</li>
+          <li>Colour: accent gold at 10% fill</li>
+        </ul>
+      </div>
+      <div class="export-block">
+        <h4>6. Components to build</h4>
+        <ul>
+          <li>Nav bar (default + scrolled states)</li>
+          <li>Project card (default + hover)</li>
+          <li>Family tag badge</li>
+          <li>Hero descriptor block</li>
+          <li>Hero meta stats row</li>
+          <li>Enter arrow button</li>
+          <li>Grid section header</li>
+          <li>Footer</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<!-- PAGE FOOTER -->
+<footer style="margin-top:4rem;border-top:1px solid var(--doc-border);padding:2rem 4rem;display:flex;justify-content:space-between;align-items:center;">
+  <span style="font-family:'Bebas Neue',sans-serif;font-size:1rem;letter-spacing:0.2em;color:var(--cream);opacity:0.2;">Jason Stone</span>
+  <span style="font-size:0.58rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--doc-muted);">Insignia · Design System · 2026</span>
+</footer>
+
+</body>
+</html>
