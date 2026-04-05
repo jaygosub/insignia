@@ -344,8 +344,25 @@
       background: rgba(255,255,255,0.03);
     }
 
-    .project-card:nth-child(1) .card-image,
-    .project-card:nth-child(2) .card-image { aspect-ratio: 16/9; }
+    /*.project-card:nth-child(1) .card-image,
+    .project-card:nth-child(2) .card-image { aspect-ratio: 16/9; }*/
+
+    /* First row — wide cards, cinematic ratio */
+.project-card:nth-child(1) .card-image,
+.project-card:nth-child(2) .card-image { aspect-ratio: 16/9; }
+
+/* Second row — cards 3 & 4 stay 4/3 (span 7 and 5) */
+.project-card:nth-child(3) .card-image,
+.project-card:nth-child(4) .card-image { aspect-ratio: 4/3; }
+
+/* Third row — cards 5, 6, 7 are narrow (span 4), force taller to match */
+.project-card:nth-child(5) .card-image,
+.project-card:nth-child(6) .card-image,
+.project-card:nth-child(7) .card-image { aspect-ratio: 3/4; }
+
+/* Fourth row — cards 8 & 9 */
+.project-card:nth-child(8) .card-image,
+.project-card:nth-child(9) .card-image { aspect-ratio: 4/3; }
 
     .card-image img {
       width: 100%;
@@ -390,7 +407,8 @@
 
     /* Card info */
     .card-info {
-      padding: 1.25rem 1.5rem 1.5rem;
+      /*padding: 1.25rem 1.5rem 1.5rem;*/
+      padding: 0.9rem 1.2rem 1.1rem;
       display: flex;
       justify-content: space-between;
       align-items: flex-end;
