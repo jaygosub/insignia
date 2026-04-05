@@ -293,10 +293,11 @@
     .project-card:nth-child(2) { grid-column: span 7; }
     .project-card:nth-child(3) { grid-column: span 7; }
     .project-card:nth-child(4) { grid-column: span 5; }
-    .project-card:nth-child(5) { grid-column: span 5; }
-    .project-card:nth-child(6) { grid-column: span 7; }
-    .project-card:nth-child(7) { grid-column: span 7; }
+    .project-card:nth-child(5) { grid-column: span 4 }
+    .project-card:nth-child(6) { grid-column: span 4; }
+    .project-card:nth-child(7) { grid-column: span 4; }
     .project-card:nth-child(8) { grid-column: span 5; }
+    .project-card:nth-child(9) { grid-column: span 7; }
 
     .project-card {
       position: relative;
@@ -327,6 +328,8 @@
     .project-card:nth-child(5) { transition-delay: 0.06s; }
     .project-card:nth-child(6) { transition-delay: 0.14s; }
     .project-card:nth-child(7) { transition-delay: 0.20s; }
+     .project-card:nth-child(8) { transition-delay: 0.08s; }
+    .project-card:nth-child(9) { transition-delay: 0.14s; }
 
     .project-card:hover {
       border-color: rgba(200,169,110,0.35);
@@ -523,7 +526,9 @@
       <p class="hero-eyebrow">Jason Stone &nbsp;·&nbsp; Selected Works &nbsp;·&nbsp; Insignia</p>
       <h1 class="hero-title">Insig<em>nia</em></h1>
       <div class="hero-descriptor">
-        <p>The essence of order and recognition. A visible mark that indicates togetherness — military insignia as the purest expression of identity, belonging, and craft. Seven projects. Two personal. All obsessive.</p>
+        <p>The essence of order and recognition. A visible mark that indicates togetherness — military insignia as the purest expression of identity, belonging, and craft. Seven projects. Two personal. All obsessive.
+          Vectors produced in Adobe Illustrator. 3D photorealistic renders generated with Adobe Photoshop and Luma. Motion rendered with Flow, Veo and Luma. Research and design iteration assisted by Gemini and Claude. No AI is utilised in Adobe Illustrator, all vectors are hand drawn.
+        </p>
       </div>
       <div class="hero-meta">
         <div class="hero-meta-item">
@@ -693,6 +698,24 @@
           <div class="card-text">
             <p class="card-category">Chief Petty Officer · Concept Study</p>
             <h3 class="card-title">Chief Petty Officer</h3>
+          </div>
+          <span class="card-year"></span>
+        </div>
+        <div class="card-enter">
+          <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </div>
+      </a>
+
+                  <!-- 9. Rank Badge-->
+      <a class="project-card" href="rank-badges/project_template_05_April.html">
+        <div class="card-image">
+          <img src="rank-badges/images/WO1.jpg" alt="Warrant Officer Class 1" loading="lazy"
+               onerror="this.parentElement.innerHTML='<div class=\'card-no-image\'><svg viewBox=\'0 0 48 48\' xmlns=\'http://www.w3.org/2000/svg\'><rect x=\'8\' y=\'8\' width=\'32\' height=\'32\' rx=\'2\' stroke=\'%23c8a96e\' stroke-width=\'1.5\' fill=\'none\'/><path d=\'M16 24h16M24 16v16\' stroke=\'%23c8a96e\' stroke-width=\'1.5\' stroke-linecap=\'round\'/></svg></div>'" />
+        </div>
+        <div class="card-info">
+          <div class="card-text">
+            <p class="card-category">Rank Badges · Design Study</p>
+            <h3 class="card-title">Rank Badges</h3>
           </div>
           <span class="card-year"></span>
         </div>

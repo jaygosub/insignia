@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Insignia</title>
+  <title>Orbit</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;1,300&display=swap');
 
@@ -12,6 +12,8 @@
       --dark: #0a0a0f;
       --accent: #c8a96e;
       --muted: rgba(245, 240, 232, 0.55);
+      --panel-max: 1000px;
+      --panel-pad: 3rem;
     }
 
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
@@ -190,7 +192,7 @@
 
     .content-section { padding: 7rem 0; }
 
-    .section-inner { max-width: 1000px; margin: 0 auto; padding: 0 3rem; }
+    .section-inner { max-width: var(--panel-max); margin: 0 auto; padding: 0 var(--panel-pad); }
 
     .text-block {
       background: rgba(10,10,15,0.55);
@@ -200,7 +202,7 @@
     }
 
     .section-label {
-      font-size: 0.65rem; letter-spacing: 0.35em;
+      font-size: 0.65rem; line-height: 0.65; letter-spacing: 0.35em;
       text-transform: uppercase; color: var(--accent); margin-bottom: 1.5rem;
     }
 
@@ -214,8 +216,12 @@
     .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; }
     .three-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 3rem; margin-top: 3rem; }
 
+    /* Stacked intro layout — full-width title + body, no side-by-side split */
+    .intro-stacked { display: flex; flex-direction: column; gap: 1.5rem; }
+    .intro-stacked h2 { margin-bottom: 0; }
+
     .content-section p, .timeline-content p {
-      font-size: 1rem; line-height: 1.85; color: var(--muted); font-weight: 300;
+      font-size: 1rem; line-height: 1.45; color: var(--muted); font-weight: 300;
     }
 
     .card { border-top: 1px solid rgba(200,169,110,0.25); padding-top: 2rem; }
@@ -289,7 +295,7 @@
     /* ── Fullbleed ── */
     .section-fullbleed { padding: 7rem 0; }
 
-    .fullbleed-wrap { position: relative; max-width: 1100px; margin: 0 auto; padding: 0 3rem; }
+    .fullbleed-wrap { position: relative; max-width: var(--panel-max); margin: 0 auto; padding: 0 var(--panel-pad); }
 
     .fullbleed-wrap img {
       width: 100%; max-height: 85vh;
@@ -297,7 +303,7 @@
     }
 
     .fullbleed-caption {
-      position: absolute; bottom: 1rem; right: 3.75rem;
+      position: absolute; bottom: 1rem; right: calc(var(--panel-pad) + 0.75rem);
       font-size: 0.62rem; letter-spacing: 0.22em; text-transform: uppercase;
       color: rgba(245,240,232,0.5);
       background: rgba(10,10,15,0.5); backdrop-filter: blur(6px);
@@ -323,7 +329,7 @@
     /* ── Gallery ── */
     .gallery-section { padding: 7rem 0; }
 
-    .gallery-inner { max-width: 1200px; margin: 0 auto; padding: 0 3rem; }
+    .gallery-inner { max-width: var(--panel-max); margin: 0 auto; padding: 0 var(--panel-pad); }
 
     .gallery-header { margin-bottom: 2.5rem; }
 
@@ -332,10 +338,10 @@
       text-transform: uppercase; color: var(--accent); margin-bottom: 0.75rem;
     }
 
-    .gallery-grid { columns: 3; column-gap: 0.75rem; }
+    .gallery-grid { columns: 3; column-gap: 0; }
 
     .gallery-item {
-      break-inside: avoid; margin-bottom: 0.75rem;
+      break-inside: avoid; margin-bottom: 0;
       position: relative; overflow: hidden; cursor: pointer;
     }
 
@@ -347,7 +353,27 @@
       background: rgba(10,10,15,0); transition: background 0.3s ease;
     }
 
-    .gallery-item:hover::after { background: rgba(10,10,15,0.25); }
+    .gallery-item:hover::after { background: rgba(10,10,15,0.6); }
+
+    /* Centred click indicator — accent cross */
+    .gallery-item::before {
+      content: '';
+      position: absolute; top: 50%; left: 50%;
+      transform: translate(-50%, -50%) scale(0.7);
+      width: 25px; height: 25px;
+      background:
+        linear-gradient(var(--accent), var(--accent)) center/5px 100% no-repeat,
+        linear-gradient(var(--accent), var(--accent)) center/100% 5px no-repeat;
+      opacity: 0;
+      transition: opacity 0.3s ease, transform 0.3s ease;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .gallery-item:hover::before {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1);
+    }
 
     /* ── Lightbox ── */
     #lightbox {
@@ -362,65 +388,83 @@
 
     #lightbox-close {
       position: absolute; top: 2rem; right: 2.5rem;
-      font-size: 1.5rem; color: var(--muted);
-      cursor: pointer; background: none; border: none; line-height: 1; transition: color 0.2s;
+      background: none; border: none; cursor: pointer;
+      color: var(--muted); transition: color 0.2s; padding: 0.5rem;
+    }
+
+    #lightbox-close svg {
+      width: 22px; height: 22px;
+      stroke: currentColor; fill: none;
+      stroke-width: 1.5; stroke-linecap: round;
     }
 
     #lightbox-close:hover { color: var(--cream); }
 
     #lightbox-prev, #lightbox-next {
       position: absolute; top: 50%; transform: translateY(-50%);
-      background: none; border: 1px solid rgba(200,169,110,0.2);
-      color: var(--accent); font-family: 'Bebas Neue', sans-serif;
-      font-size: 0.85rem; letter-spacing: 0.15em;
-      padding: 0.6rem 1rem; cursor: pointer; transition: border-color 0.2s; border-radius: 1px;
+      background: none; border: none; cursor: pointer;
+      color: var(--muted); transition: color 0.2s; padding: 1rem;
     }
 
-    #lightbox-prev { left: 2rem; }
-    #lightbox-next { right: 2rem; }
-    #lightbox-prev:hover, #lightbox-next:hover { border-color: var(--accent); color: var(--cream); }
+    #lightbox-prev svg, #lightbox-next svg {
+      width: 28px; height: 28px;
+      stroke: currentColor; fill: none;
+      stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round;
+    }
 
-    #lightbox-count {
+    #lightbox-prev { left: 1.5rem; }
+    #lightbox-next { right: 1.5rem; }
+    #lightbox-prev:hover, #lightbox-next:hover { color: var(--accent); }
+
+    #lightbox-dots {
       position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%);
-      font-size: 0.65rem; letter-spacing: 0.22em; color: var(--muted);
+      display: flex; gap: 0.5rem; align-items: center;
+    }
+
+    .lb-dot {
+      width: 5px; height: 5px; border-radius: 50%;
+      background: rgba(245,240,232,0.3);
+      transition: background 0.2s, transform 0.2s;
+      cursor: pointer;
+    }
+
+    .lb-dot.active {
+      background: var(--accent);
+      transform: scale(1.4);
     }
 
     /* ── Timeline ── */
     .timeline-section { padding: 7rem 0; }
 
-    .timeline-inner { max-width: 1100px; margin: 0 auto; padding: 0 3rem; }
+    .timeline-inner { max-width: var(--panel-max); margin: 0 auto; padding: 0 var(--panel-pad); }
 
     .timeline-header { margin-bottom: 4rem; }
 
-    .timeline-track { display: grid; grid-template-columns: 60px 1fr; gap: 0 2.5rem; }
+    /* Steps: clean stacked layout — no roundels, no spine */
+    .timeline-steps { display: flex; flex-direction: column; gap: 3.5rem; }
 
-    .timeline-spine { display: flex; flex-direction: column; align-items: center; }
+    .timeline-step { display: flex; flex-direction: column; gap: 0.6rem; }
 
-    .timeline-node {
-      width: 36px; height: 36px; border-radius: 50%;
-      border: 1.5px solid var(--accent);
-      display: flex; align-items: center; justify-content: center;
-      font-family: 'Bebas Neue', sans-serif; font-size: 0.85rem;
-      letter-spacing: 0.1em; color: var(--accent); flex-shrink: 0;
-      background: rgba(10,10,15,0.8); backdrop-filter: blur(4px);
+    .timeline-step-label {
+      font-size: 0.62rem; letter-spacing: 0.32em;
+      text-transform: uppercase; color: var(--accent);
+      display: none; /* numbers removed per design */
     }
 
-    .timeline-line {
-      width: 1px; flex: 1; min-height: 3rem;
-      background: linear-gradient(to bottom, rgba(200,169,110,0.3), rgba(200,169,110,0.05));
-      margin: 0.5rem 0;
-    }
-
-    .timeline-content { padding-bottom: 4rem; }
+    .timeline-content { /* kept for reveal observer compat */ }
 
     .timeline-content h3 {
       font-family: 'Bebas Neue', sans-serif;
       font-size: clamp(1.8rem, 3.5vw, 2.8rem);
       letter-spacing: 0.06em; color: var(--cream);
-      line-height: 1; margin-bottom: 1rem; margin-top: 0.4rem;
+      line-height: 1; margin-bottom: 0.25rem;
     }
 
-    .timeline-content .step-image { margin-top: 1.5rem; max-width: 580px; }
+    .timeline-content p {
+      font-size: 1rem; line-height: 1.45; color: var(--muted); font-weight: 300;
+    }
+
+    .timeline-content .step-image { margin-top: 1rem; width: 100%; }
     .timeline-content .step-image img { width: 100%; border-radius: 2px; display: block; }
 
     /* ── Footer ── */
@@ -470,7 +514,7 @@
     /* ── Annotated / Badge diagram section ── */
     .annotated-section { padding: 7rem 0; }
 
-    .annotated-inner { max-width: 1100px; margin: 0 auto; padding: 0 3rem; }
+    .annotated-inner { max-width: var(--panel-max); margin: 0 auto; padding: 0 var(--panel-pad); }
 
     .annotated-block {
       background: rgba(10,10,15,0.52);
@@ -520,12 +564,12 @@
 
     .callout-float-label {
       font-family: 'DM Sans', sans-serif;
-      font-size: .85rem; letter-spacing: 0.36em;
+      font-size: .65rem; letter-spacing: 0.35em;
       color: rgb(200,169,110); line-height: 1.1;
       margin-bottom: 0.3rem; text-transform: uppercase;
     }
 
-    .callout-float-desc { font-size: 0.88rem; line-height: 1.65; color: rgba(245,240,232,0.45); }
+    .callout-float-desc { font-size: 0.9rem; line-height: 1.4; color: rgba(245,240,232,0.45); }
 
     .badge-svg .draw-stroke {
       fill: none; stroke: #f5f0e8;
@@ -550,7 +594,7 @@
     /* ── Panel sections ── */
     .panel-section { padding: 7rem 0; position: relative; z-index: 10; }
 
-    .panel-inner { max-width: 1100px; margin: 0 auto; padding: 0 3rem; }
+    .panel-inner { max-width: var(--panel-max); margin: 0 auto; padding: 0 var(--panel-pad); }
 
     .panel-label {
       font-size: 0.65rem; letter-spacing: 0.35em;
@@ -731,15 +775,92 @@
     .gallery-item.reveal:nth-child(8) { transition-delay: 0.12s; }
     .gallery-item.reveal:nth-child(9) { transition-delay: 0.20s; }
 
-    .timeline-content.reveal:nth-child(4)  { transition-delay: 0.10s; }
-    .timeline-content.reveal:nth-child(6)  { transition-delay: 0.15s; }
-    .timeline-content.reveal:nth-child(8)  { transition-delay: 0.20s; }
-    .timeline-content.reveal:nth-child(10) { transition-delay: 0.25s; }
+    .timeline-content.reveal { transition-duration: 0.6s; }
+
+    /* ── Back to top ── */
+    #back-to-top {
+      display: inline-flex; align-items: center; justify-content: center;
+      margin-bottom: 2.5rem;
+      width: 40px; height: 40px;
+      border: 1px solid rgba(200,169,110,0.25); border-radius: 50%;
+      background: none; cursor: pointer;
+      color: var(--muted); transition: color 0.2s, border-color 0.2s;
+    }
+
+    #back-to-top svg {
+      width: 16px; height: 16px;
+      stroke: currentColor; fill: none;
+      stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round;
+    }
+
+    #back-to-top:hover { color: var(--accent); border-color: var(--accent); }
+
+    /* ── Hamburger button ── */
+    .hamburger {
+      display: none;
+      flex-direction: column; justify-content: center; align-items: center;
+      gap: 5px;
+      background: none; border: none; cursor: pointer;
+      padding: 0.4rem; margin-left: auto;
+      pointer-events: all;
+    }
+
+    .hamburger span {
+      display: block; width: 20px; height: 1.5px;
+      background: var(--cream); border-radius: 2px;
+      transition: transform 0.25s ease, opacity 0.25s ease;
+    }
+
+    /* ── Mobile menu overlay ── */
+    #mobile-menu {
+      position: fixed; inset: 0; z-index: 400;
+      background: rgba(8,8,12,0.75);
+      backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+
+    #mobile-menu.open { opacity: 1; pointer-events: all; }
+
+    #mobile-menu-close {
+      position: absolute; top: 1.8rem; right: 1.5rem;
+      background: none; border: none; cursor: pointer;
+      color: var(--muted); padding: 0.5rem;
+      transition: color 0.2s;
+    }
+
+    #mobile-menu-close:hover { color: var(--cream); }
+
+    #mobile-menu-close svg {
+      width: 24px; height: 24px;
+      stroke: currentColor; fill: none;
+      stroke-width: 1.5; stroke-linecap: round;
+      display: block;
+    }
+
+    #mobile-menu-nav {
+      display: flex; flex-direction: column;
+      align-items: center; gap: 2.5rem;
+    }
+
+    #mobile-menu-nav a {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2rem, 8vw, 3.5rem);
+      letter-spacing: 0.12em; color: var(--cream);
+      text-decoration: none; opacity: 0.85;
+      transition: color 0.2s, opacity 0.2s;
+    }
+
+    #mobile-menu-nav a:hover { color: var(--accent); opacity: 1; }
 
     /* ════════════════════════════════════════════
        RESPONSIVE — Tablet  ≤ 900px
     ════════════════════════════════════════════ */
     @media (max-width: 900px) {
+      :root { --panel-pad: 2rem; }
+
       /* HUD */
       .caption-top { display: none; }
       #hud-bar { padding: 1.5rem 2rem; gap: 1.5rem; }
@@ -747,7 +868,6 @@
 
       /* Sections */
       .content-section { padding: 5rem 0; }
-      .section-inner { padding: 0 2rem; }
       .text-block { padding: 2.5rem 2rem; }
 
       /* Grids → single column */
@@ -758,39 +878,28 @@
       .text-image-right,
       .text-image-left { grid-template-columns: 1fr; gap: 2rem; }
 
-      /* Both variants: image always goes after text on mobile */
       .text-image-right .ti-image,
       .text-image-left .ti-image { order: 1; }
       .text-image-right .ti-text,
       .text-image-left .ti-text  { order: 0; }
 
-      /* Image fills width at tablet */
       .text-image-right .ti-image img,
       .text-image-left .ti-image img { aspect-ratio: 4/3; }
 
       /* Fullbleed */
-      .fullbleed-wrap { padding: 0 1rem; }
       .fullbleed-wrap img { max-height: 60vh; }
-
-      /* Timeline */
-      .timeline-inner { padding: 0 2rem; }
-      .timeline-track { grid-template-columns: 48px 1fr; gap: 0 1.5rem; }
-      .timeline-content .step-image { max-width: 100%; }
 
       /* Gallery → 2 col */
       .gallery-grid { columns: 2; }
-      .gallery-inner { padding: 0 2rem; }
 
       /* Stats → 2 col */
       .stat-row { grid-template-columns: repeat(2,1fr); }
 
       /* Pull quote */
-      .pull-quote { padding: 0; }
       .pull-quote blockquote { padding-left: 1.5rem; }
       .pull-quote cite { padding-left: 1.5rem; }
 
       /* Annotated */
-      .annotated-inner { padding: 0 2rem; }
       .annotated-block { padding: 2.5rem 2rem; }
       .annotated-diagram { flex-direction: column; }
       .badge-svg-wrap { flex: none; width: 70%; max-width: none; margin: 0 auto; }
@@ -804,56 +913,77 @@
       .sbs-captions { grid-template-columns: 1fr; gap: 1.5rem; }
       .rn-badge-primary { padding: 0 20px; }
       .rn-badge-secondary { padding: 0 40px; }
+
+      /* Body copy — tighter on tablet */
+      .content-section p, .timeline-content p { line-height: 1.65; }
     }
 
     /* ════════════════════════════════════════════
        RESPONSIVE — Mobile  ≤ 540px
     ════════════════════════════════════════════ */
     @media (max-width: 540px) {
-      /* HUD — tighten further */
+      :root { --panel-pad: 10px; }
+
+      /* HUD — hamburger replaces nav */
       #hud-bar { padding: 1.2rem 1.2rem; gap: 1rem; }
       .wordmark { font-size: 1.2rem; }
-      .hud-nav a { font-size: 0.5rem; letter-spacing: 0.12em; }
+      .hud-nav { display: none; }
+      .hamburger { display: flex; }
 
       /* Hero */
       #hero h1 { font-size: clamp(3.5rem, 16vw, 6rem); }
       #hero p { font-size: 0.68rem; letter-spacing: 0.2em; padding: 0.4rem 0.9rem; }
 
-      /* Sections */
+      /* Sections — consistent panel padding via --panel-pad */
       .content-section { padding: 4rem 0; }
-      .section-inner { padding: 0 1.2rem; }
-      .text-block { padding: 2rem 1.5rem; }
+      .gallery-section { padding: 4rem 0; }
+      .timeline-section { padding: 4rem 0; }
+      .panel-section { padding: 4rem 0; }
+      .annotated-section { padding: 4rem 0; }
+      .section-fullbleed { padding: 4rem 0; }
 
-      /* Images edge-to-edge on mobile */
-      .text-image-right .ti-image img,
-      .text-image-left .ti-image img {
-        aspect-ratio: 16/9;
-        border-radius: 0;
-        margin: 0 -1.5rem;
-        width: calc(100% + 3rem);
+      /* First panel (pull quote) keeps its own padding; all after get tighter */
+      .text-block { padding: 3rem 2rem; }
+
+      /* Two-col gap collapses to 0 on mobile */
+      .two-col { gap: 0; }
+
+      /* h2 margin on mobile */
+      .section-inner h2, .timeline-header h2, .gallery-header h2 { margin-bottom: 0.5rem; }
+
+      /* Body copy — mobile sizing */
+      .content-section p, .timeline-content p {
+        font-size: 0.9rem;
+        line-height: 1.4;
       }
 
-      /* Fullbleed truly full-bleed */
-      .fullbleed-wrap { padding: 0; }
-      .fullbleed-wrap img { border-radius: 0; max-height: 50vh; }
-      .fullbleed-caption { right: 0.75rem; bottom: 0.75rem; }
+      /* Centre-align all text sections after the first panel */
+      .content-section:not(:first-of-type) .text-block,
+      .timeline-section .text-block,
+      .gallery-section,
+      .panel-section .text-block,
+      .annotated-section .annotated-block {
+        text-align: center;
+      }
 
-      /* Timeline spine — tighten */
-      .timeline-inner { padding: 0 1.2rem; }
-      .timeline-track { grid-template-columns: 40px 1fr; gap: 0 1rem; }
-      .timeline-node { width: 30px; height: 30px; font-size: 0.7rem; }
+      /* But keep pull-quote left-aligned (it has its own border-left) */
+      .pull-quote { text-align: left; }
+
+      /* Fullbleed — same width as all other panels on mobile */
+      .fullbleed-wrap img { border-radius: 2px; max-height: 50vh; }
+
+      /* Text+Image images — standard aspect, within panel padding */
+      .text-image-right .ti-image img,
+      .text-image-left .ti-image img { aspect-ratio: 16/9; border-radius: 2px; }
 
       /* Gallery → 1 col */
       .gallery-grid { columns: 1; }
-      .gallery-inner { padding: 0 1.2rem; }
-      .gallery-section { padding: 4rem 0; }
 
       /* Stats → 1 col */
       .stat-row { grid-template-columns: 1fr; }
 
       /* Annotated */
-      .annotated-inner { padding: 0 1.2rem; }
-      .annotated-block { padding: 2rem 1.5rem; }
+      .annotated-block { padding: 2rem 3rem; }
       .badge-svg-wrap { width: 90%; }
       .callout-list { gap: 1.2rem; }
       .badge-ghost { display: none; }
@@ -864,8 +994,11 @@
       .hq-colourways .hq-item__image-wrap { height: auto; padding: 1rem 0; }
       .sbs-captions { grid-template-columns: 1fr; gap: 1.2rem; }
       .rn-badge-primary { padding: 0; }
-      .rn-badge-secondary { padding: 0 20px; }
-      .sw-panel__logos { gap: 1.5rem 0; justify-content: center; }
+      .rn-badge-secondary { padding: 0 10px; }
+
+      /* Software logos — stack vertically, larger gap, smaller icons */
+      .sw-panel__logos { flex-direction: column; align-items: center; gap: 3rem; }
+      .sw-logo__icon { height: 22px; }
 
       /* Pull quote */
       .pull-quote blockquote { font-size: clamp(1.8rem, 7vw, 2.5rem); padding-left: 1.2rem; }
@@ -875,9 +1008,9 @@
       footer { padding: 4rem 1.5rem; }
       footer .footer-wordmark { font-size: 2.5rem; }
 
-      /* Lightbox nav — easier to tap */
-      #lightbox-prev { left: 0.75rem; padding: 0.5rem 0.75rem; }
-      #lightbox-next { right: 0.75rem; padding: 0.5rem 0.75rem; }
+      /* Lightbox — more touch-friendly */
+      #lightbox-prev { left: 0.25rem; }
+      #lightbox-next { right: 0.25rem; }
     }
   </style>
 </head>
@@ -890,14 +1023,14 @@
 const CONFIG = {
 
   /* ── Identity ── */
-  title:    "New Template",
-  wordmark: "Insignia",
-  caption:  "3D Visualisation · 2025",
+  title:    "SBS",
+  wordmark: "SBS",
+  caption:  "Badge Concept · 2026",
 
   /* ── Hero ── */
-  heroLine1: "De Oppresso",
-  heroLine2: "Liber",
-  heroSub:   "Special Forces · Insignia Study · 2025",
+  heroLine1: "By Strength",
+  heroLine2: "And Guile",
+  heroSub:   "Special Boat Squadron · New Badge Design · 2026",
 
   /* ── Video (relative path) ── */
   video: "video.mp4",
@@ -944,7 +1077,7 @@ const CONFIG = {
     },
 
     fullbleed: {
-      image: "images/SBS1.webp",
+      image: "images/SBS2.webp",
       caption: "Surface study",
     },
 
@@ -963,13 +1096,13 @@ const CONFIG = {
           n: "02",
           title: "Vector Construction",
           body: "Base geometry built from measured drawings. Each element modelled separately then assembled.",
-          image: "images/SBS1.webp",
+          image: "images/SBS3.webp",
         },
         {
           n: "03",
           title: "3D & Materials",
           body: "Material development — base specularity, edge wear, micro-scratching, and patina in the recesses.",
-          image: "images/SBS1.webp",
+          image: "images/SBS copy.webp",
         },
         {
           n: "04",
@@ -984,34 +1117,32 @@ const CONFIG = {
       showChapter: false,
       heading: "The Detail That Earns Trust",
       body: "Clients and viewers who know the subject well will notice the things you got right — and the things you didn't. That scrutiny is the standard the work was built to meet.",
-      image: "images/SBS1.webp",
+      image: "images/SBS_2.webp",
       imageAlt: "Final render detail",
     },
 
     annotated: {
-      chapter: "Chapter XX — The Insignia",
+      chapter: "The Badge Components",
       showChapter: true,
       heading: "Anatomy of the Badge",
       body: "Every element carries deliberate meaning.",
-      /* ghostImage: path to the ghost badge behind the panel */
-      ghostImage: "images/SBS_Badge2",
+      ghostImage: "images/SBS_Badge2.webp",  /* path to faint badge shown behind the panel */
       callouts: [
-        { id: 'shield',  ax: 0.5, ay: 0.5, label: "Shield",  desc: "The outer form — describe its significance here." },
-        { id: 'sword',   ax: 0.5, ay: 0.7, label: "Dagger",  desc: "The central device — describe here." },
+        { id: 'sword',   label: "Dagger",       desc: "The special forces dagger — in this instance shown point down, a reference to the commando tradition." },
+        { id: 'waves',   label: "Waves",        desc: "Two wave forms crossing the dagger. A direct and historical reference to the maritime theatre the unit operates in." },
+        { id: 'scrolls', label: "Motto Scroll", desc: "The scroll carries the regimental motto. A nod to the existing badge, but more in keeping with the wider special forces insignia language." },
       ],
-      /* svgSource: paste your inline SVG string here (see SBS index.html for reference) */
-      svgSource: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="40" fill="none" stroke="#f5f0e8" stroke-width="2"/></svg>`,
-      /* badgeParts: array of { id, dl, dd, isFill? } for draw-on animation */
-      badgeParts: [],
     },
 
     gallery: {
       label: "Full Series",
       heading: "All Renders",
       images: [
-        "images/sbs1.webp",
-        "images/sbs2.webp",
-        "images/sbs3.webp",
+        "images/SBS1.webp",
+        "images/SBS2.webp",
+        "images/SBS3.webp",
+        "images/SBS copy.webp",
+        "images/SBS_2.webp",
       ],
     },
 
@@ -1072,12 +1203,23 @@ const CONFIG = {
       <div class="wordmark" id="hud-wordmark"></div>
       <div class="hud-nav" id="hud-nav"></div>
       <div class="caption-top" id="hud-caption"></div>
+      <button class="hamburger" id="hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
     </div>
     <div id="scroll-cue">
       <span>Scroll</span>
       <div class="scroll-arrow"></div>
     </div>
     <div id="progress-pct">0%</div>
+  </div>
+
+  <!-- Mobile full-screen menu overlay -->
+  <div id="mobile-menu">
+    <button id="mobile-menu-close" aria-label="Close menu">
+      <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+    <nav id="mobile-menu-nav"></nav>
   </div>
 
   <div id="scroll-content">
@@ -1088,11 +1230,17 @@ const CONFIG = {
   </div>
 
   <div id="lightbox">
-    <button id="lightbox-close">&#x2715;</button>
-    <button id="lightbox-prev">&#8592; Prev</button>
+    <button id="lightbox-close" aria-label="Close">
+      <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+    <button id="lightbox-prev" aria-label="Previous">
+      <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+    </button>
     <img id="lightbox-img" src="" alt="" />
-    <button id="lightbox-next">Next &#8594;</button>
-    <div id="lightbox-count"></div>
+    <button id="lightbox-next" aria-label="Next">
+      <svg viewBox="0 0 24 24"><polyline points="9 6 15 12 9 18"/></svg>
+    </button>
+    <div id="lightbox-dots"></div>
   </div>
 
   <script>
@@ -1188,11 +1336,20 @@ const CONFIG = {
 
   /* Intro */
   if (CONFIG.sections.intro) {
-    const c  = CONFIG.content.intro;
-    const tc = el('div', 'two-col');
-    tc.appendChild(el('h2', '', c.heading));
-    tc.appendChild(el('p', '', c.body));
-    appendSection(makeTextBlock([tc], c.showChapter, c.chapter));
+    const c = CONFIG.content.intro;
+    let inner;
+    if (c.layout === 'stacked') {
+      /* Full-width stacked: label → h2 → body, no two-col split */
+      inner = el('div', 'intro-stacked');
+      inner.appendChild(el('h2', '', c.heading));
+      inner.appendChild(el('p', '', c.body));
+    } else {
+      /* Default: two-col, heading left, body right */
+      inner = el('div', 'two-col');
+      inner.appendChild(el('h2', '', c.heading));
+      inner.appendChild(el('p', '', c.body));
+    }
+    appendSection(makeTextBlock([inner], c.showChapter, c.chapter));
   }
 
   /* Text + image right */
@@ -1221,20 +1378,18 @@ const CONFIG = {
 
   /* Timeline */
   if (CONFIG.sections.timeline) {
-    const c     = CONFIG.content.timeline;
-    const s     = el('section', 'timeline-section');
-    const ti    = el('div', 'timeline-inner');
-    const tb    = el('div', 'text-block');
+    const c  = CONFIG.content.timeline;
+    const s  = el('section', 'timeline-section');
+    const ti = el('div', 'timeline-inner');
+    const tb = el('div', 'text-block');
     if (c.showChapter && c.chapter) tb.appendChild(el('p', 'section-label', c.chapter));
     const th = el('div', 'timeline-header');
     th.appendChild(el('h2', '', c.heading));
     tb.appendChild(th);
-    const track = el('div', 'timeline-track');
-    c.steps.forEach((step, i) => {
-      const spine = el('div', 'timeline-spine');
-      spine.appendChild(el('div', 'timeline-node', step.n));
-      if (i < c.steps.length - 1) spine.appendChild(el('div', 'timeline-line'));
+    const steps = el('div', 'timeline-steps');
+    c.steps.forEach(step => {
       const content = el('div', 'timeline-content');
+      content.appendChild(el('p', 'timeline-step-label', step.n));
       content.appendChild(el('h3', '', step.title));
       content.appendChild(el('p', '', step.body));
       if (step.image) {
@@ -1242,10 +1397,9 @@ const CONFIG = {
         si.appendChild(mkImg(step.image, step.title));
         content.appendChild(si);
       }
-      track.appendChild(spine);
-      track.appendChild(content);
+      steps.appendChild(content);
     });
-    tb.appendChild(track);
+    tb.appendChild(steps);
     ti.appendChild(tb);
     s.appendChild(ti);
     main.appendChild(s);
@@ -1276,27 +1430,98 @@ const CONFIG = {
 
     if (c.showChapter && c.chapter) ab.appendChild(el('p', 'annotated-label', c.chapter));
 
-    /* Ghost badge background */
-    if (c.ghostImage) {
-      const ghost = document.createElement('div');
-      ghost.className = 'badge-ghost';
-      ghost.innerHTML = `<img src="${c.ghostImage}" alt="">`;
-      ab.appendChild(ghost);
-    }
+    /* Ghost badge — path from CONFIG */
+    const ghost = document.createElement('div');
+    ghost.className = 'badge-ghost';
+    ghost.innerHTML = `<img src="${c.ghostImage}" alt="">`;
+    ab.appendChild(ghost);
 
     const diagram = document.createElement('div');
     diagram.className = 'annotated-diagram';
 
-    /* Badge SVG */
     const badgeWrap = document.createElement('div');
     badgeWrap.className = 'badge-svg-wrap';
 
+    /* ── SVG source — replace this entire block for a new project badge ── */
+    const svgSource = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 417.63 458.56">
+  <defs><style>.cls-1{fill:#f5f0e8}.cls-2,.cls-3{fill:none;stroke:#f5f0e8;stroke-width:2.97px}.cls-3{stroke-miterlimit:10}</style></defs>
+  <g id="scroll_base_left"><path class="cls-3" d="M113.1,293.73c11.07,16.24,29.44,34.55,59.93,41.07"/></g>
+  <g id="motto"><g><g><path class="cls-1" d="M243.31,271.1c-1.21-5.17-2.43-10.33-3.66-15.49.65-.35.98-.53,1.62-.89,3.91,4.9,5.86,7.33,9.74,12.16-.76.48-1.14.71-1.9,1.17-.81-1.07-1.21-1.6-2.02-2.67-1.05.61-1.58.9-2.66,1.46.35,1.32.52,1.98.87,3.3-.79.4-1.19.6-2,.97ZM245.82,263.7c-1.36-1.81-2.04-2.71-3.4-4.52-.02,0-.02.01-.04.02.6,2.23.9,3.35,1.49,5.57.79-.42,1.18-.63,1.95-1.07Z"/><path class="cls-1" d="M253.31,265.24c-2.82-5.53-4.23-8.29-7.04-13.81.7-.51,1.05-.76,1.74-1.29,2.78,2.5,4.17,3.74,6.93,6.21.01-.01.02-.02.03-.03-1.7-3.33-2.55-4.99-4.24-8.32.7-.58,1.05-.87,1.75-1.46,2.82,5.53,4.23,8.29,7.04,13.81-.65.56-.98.83-1.65,1.38-2.77-2.44-4.16-3.67-6.95-6.15-.01.01-.02.02-.04.03,1.69,3.32,2.54,4.98,4.23,8.3-.72.55-1.08.82-1.81,1.34Z"/><path class="cls-1" d="M262.75,257.72c-3.03-5.41-4.54-8.12-7.57-13.53.97-.96,1.45-1.44,2.41-2.43.93-.96,1.8-1.39,2.61-1.29.82.1,1.53.71,2.16,1.83,1.42,2.53,2.13,3.8,3.54,6.33.71,1.27.98,2.47.81,3.61-.17,1.14-.73,2.21-1.69,3.2-.9.92-1.35,1.38-2.27,2.28ZM257.83,244.38c2.21,3.95,3.32,5.93,5.53,9.88.3-.3.45-.46.75-.76.45-.47.7-.94.74-1.41.04-.47-.11-1-.43-1.58-1.46-2.61-2.19-3.91-3.65-6.52-.3-.53-.62-.85-.96-.96-.34-.1-.75.09-1.22.58-.3.31-.45.46-.75.76Z"/><path class="cls-1" d="M269.58,233.15c-.3-.54-.5-1.11-.58-1.7-.08-.59-.07-1.17.03-1.74.09-.54.26-1.06.49-1.55.23-.49.51-.92.82-1.27.32-.36.67-.64,1.06-.86.39-.21.8-.34,1.19-.35.39,0,.79.13,1.18.37.39.25.73.64,1.04,1.19l.38.68c-.62.7-.94,1.06-1.56,1.76l-.38-.68c-.26-.47-.56-.7-.89-.68-.33.01-.64.18-.93.51s-.47.71-.55,1.17c-.08.46,0,.92.27,1.39,1.6,2.86,2.4,4.29,4,7.15.26.47.56.7.89.68.33-.01.64-.19.93-.51.28-.32.47-.71.55-1.17.08-.46,0-.92-.27-1.39-.57-1.02-.86-1.53-1.43-2.55-.49.56-.74.84-1.24,1.4-.38-.68-.57-1.03-.96-1.71,1.12-1.27,1.68-1.9,2.8-3.17.95,1.7,1.43,2.55,2.38,4.26.32.57.52,1.14.59,1.72.07.58.06,1.14-.03,1.68-.1.57-.26,1.1-.5,1.59-.23.49-.51.92-.82,1.27-.32.36-.67.64-1.06.86-.39.21-.79.31-1.18.32-.39.01-.8-.08-1.17-.31-.38-.23-.73-.63-1.05-1.2-1.6-2.86-2.4-4.29-4-7.15Z"/><path class="cls-1" d="M280.21,215.1c2.35,4.2,3.52,6.29,5.87,10.49.25.44.41.92.49,1.43.08.51.08,1.04,0,1.58-.08.55-.23,1.07-.45,1.56-.22.5-.51.94-.86,1.32-.35.38-.73.65-1.13.82s-.8.24-1.2.2-.77-.16-1.11-.39c-.34-.23-.64-.56-.89-1-2.35-4.2-3.52-6.29-5.87-10.49.63-.7.94-1.04,1.58-1.73,2.31,4.12,3.46,6.18,5.77,10.3.27.48.56.74.88.76s.61-.11.89-.42c.28-.3.45-.67.51-1.09.06-.43-.04-.88-.31-1.36-2.31-4.12-3.46-6.18-5.77-10.3.64-.68.96-1.02,1.6-1.69Z"/><path class="cls-1" d="M290.95,224.99c-3.03-5.41-4.54-8.12-7.57-13.53.66-.65.99-.97,1.65-1.6,3.03,5.41,4.54,8.12,7.57,13.53-.66.63-.99.95-1.65,1.6Z"/><path class="cls-1" d="M296.32,220.24c-3.03-5.41-4.54-8.12-7.57-13.53.68-.6,1.03-.9,1.72-1.48,2.6,4.64,3.89,6.96,6.49,11.59,1.37-1.15,2.07-1.71,3.48-2.78.43.78.65,1.16,1.08,1.94-2.13,1.61-3.17,2.47-5.2,4.26Z"/><path class="cls-1" d="M304.48,214.44c-3.03-5.41-4.54-8.12-7.57-13.53,2.2-1.5,3.32-2.2,5.65-3.46.41.73.61,1.09,1.02,1.82-1.55.84-2.3,1.29-3.79,2.24.89,1.59,1.33,2.38,2.22,3.97,1.3-.82,1.95-1.22,3.29-1.96.41.73.61,1.09,1.02,1.82-1.34.74-2,1.14-3.29,1.96.89,1.59,1.33,2.38,2.22,3.97,1.49-.95,2.24-1.4,3.79-2.24.43.78.65,1.16,1.08,1.94-2.33,1.26-3.45,1.96-5.65,3.46Z"/></g><g><path class="cls-1" d="M88.69,215.07c-.66-.63-1-.95-1.66-1.57.1-.17.15-.26.25-.43.25-.44.38-.91.38-1.39,0-.49-.21-.93-.64-1.32-.23-.21-.45-.33-.65-.36-.2-.03-.4,0-.56.07-.18.08-.35.22-.5.4-.15.18-.29.38-.42.61-.15.26-.27.49-.35.68-.08.19-.13.39-.14.58-.01.2.02.4.09.62.07.21.19.47.35.77.38.7.57,1.05.95,1.76.28.51.47.98.57,1.42.1.44.14.87.1,1.27-.04.41-.17.84-.34,1.26-.18.43-.4.88-.69,1.38-.32.57-.67,1.05-1.05,1.44-.37.39-.77.66-1.18.79-.43.14-.89.13-1.37,0-.49-.14-1-.46-1.54-.95-.41-.37-.74-.79-1.01-1.27s-.44-.97-.53-1.49c-.09-.51-.1-1.03-.04-1.54.07-.51.23-1,.49-1.45.16-.29.25-.43.41-.72.69.59,1.03.88,1.71,1.48-.14.24-.21.36-.35.61-.2.35-.29.75-.27,1.2.02.45.25.86.68,1.25.29.26.54.42.75.47.21.05.41.03.6-.07.19-.1.36-.26.52-.49.16-.23.32-.5.49-.8.2-.35.36-.65.46-.9.11-.25.17-.48.18-.67,0-.2-.03-.42-.11-.62-.08-.2-.19-.45-.34-.74-.35-.67-.53-1-.89-1.65-.54-.99-.78-1.87-.71-2.65.07-.78.34-1.59.83-2.43.29-.5.62-.93,1.01-1.28.38-.35.8-.58,1.22-.7.42-.12.87-.13,1.34,0,.47.12.96.41,1.45.86.42.38.75.82.99,1.31.24.5.41,1.01.49,1.53.15,1.08,0,2.01-.44,2.79-.22.38-.32.57-.54.95Z"/><path class="cls-1" d="M86.91,228.5c2.66-4.66,3.99-6.99,6.65-11.65-.75-.76-1.13-1.14-1.89-1.88.41-.73.62-1.09,1.04-1.82,2.17,2.14,3.24,3.24,5.36,5.46-.41.73-.62,1.09-1.04,1.82-.74-.78-1.11-1.16-1.86-1.93-2.66,4.66-3.99,6.99-6.65,11.65-.64-.66-.97-.99-1.62-1.65Z"/><path class="cls-1" d="M92.11,234.4c3.19-5.32,4.79-7.98,7.98-13.3,1,1.11,1.5,1.67,2.49,2.79,1.82,2.05,1.95,4.37.39,6.97-.47.78-.97,1.34-1.49,1.67s-1.14.38-1.83.16c-.79,3.18-1.18,4.77-1.97,7.95-.66-.74-.98-1.11-1.64-1.84.79-2.92,1.18-4.38,1.97-7.3-.37-.42-.56-.62-.93-1.04-1.36,2.27-2.04,3.41-3.41,5.68-.62-.69-.93-1.04-1.55-1.73ZM100.56,224.63c-.99,1.66-1.49,2.49-2.49,4.15.35.39.53.59.88.99.27.31.52.5.74.59.22.09.43.1.62.02.18-.07.37-.24.55-.46.18-.22.38-.5.58-.84.2-.34.36-.65.49-.94.12-.29.19-.58.22-.87.02-.56-.24-1.15-.78-1.75-.32-.36-.48-.54-.81-.9Z"/><path class="cls-1" d="M99.88,244.34c3.08-5.39,4.61-8.08,7.69-13.47,1.89,2.03,2.84,3.03,4.76,5.02-.41.73-.62,1.09-1.04,1.82-1.27-1.32-1.91-1.98-3.17-3.32-.9,1.58-1.35,2.37-2.26,3.95,1.1,1.17,1.65,1.75,2.76,2.9-.41.73-.62,1.09-1.04,1.82-1.11-1.15-1.66-1.73-2.76-2.9-.9,1.58-1.35,2.37-2.26,3.95,1.26,1.34,1.9,2,3.17,3.32-.44.77-.66,1.16-1.1,1.93-1.92-1.98-2.87-2.99-4.76-5.02Z"/><path class="cls-1" d="M107.39,252.65c3.08-5.39,4.61-8.08,7.69-13.47.63.63.94.94,1.57,1.56-.86,4.22-1.29,6.32-2.14,10.51.01.01.02.02.03.03,1.85-3.25,2.78-4.87,4.63-8.11.67.63,1,.94,1.67,1.55-3.08,5.39-4.61,8.08-7.69,13.47-.63-.58-.95-.87-1.57-1.46.83-4.2,1.25-6.3,2.09-10.52-.01-.01-.02-.02-.03-.03-1.85,3.24-2.77,4.86-4.62,8.09-.66-.64-.98-.97-1.63-1.62Z"/><path class="cls-1" d="M122.7,250.1c.31-.54.67-.95,1.07-1.22.41-.27.83-.43,1.27-.47.42-.04.85.02,1.27.16.43.15.82.36,1.18.64.36.28.67.63.95,1.04.27.41.5.87.62,1.34.13.48.15,1,.09,1.55-.06.55-.25,1.09-.56,1.63-.16.27-.23.41-.39.68-.72-.53-1.08-.8-1.79-1.34.16-.27.23-.41.39-.68.27-.47.34-.9.23-1.31-.11-.4-.33-.74-.65-.99s-.66-.37-1.02-.34c-.36.03-.67.28-.94.74-1.62,2.84-2.44,4.27-4.06,7.11-.27.47-.35.91-.24,1.32.11.41.32.75.65,1,.32.26.67.37,1.03.33.36-.04.68-.29.95-.75.58-1.01.87-1.52,1.45-2.53-.56-.43-.85-.65-1.4-1.1.39-.68.58-1.02.97-1.7,1.26,1.01,1.9,1.5,3.19,2.44-.97,1.69-1.45,2.54-2.42,4.24-.32.57-.69.99-1.1,1.26-.41.27-.83.44-1.26.49-.45.06-.89.02-1.33-.12-.43-.13-.83-.34-1.18-.63-.36-.28-.67-.64-.94-1.06-.27-.42-.45-.9-.57-1.39-.12-.49-.17-1.03-.11-1.57.06-.55.25-1.1.58-1.67,1.62-2.84,2.44-4.27,4.06-7.11Z"/><path class="cls-1" d="M127.75,267.98c2.54-4.73,3.81-7.09,6.35-11.82-.89-.52-1.32-.8-2.19-1.35.4-.74.59-1.11.99-1.84,2.49,1.59,3.76,2.33,6.39,3.65-.4.74-.59,1.11-.99,1.84-.92-.46-1.37-.7-2.27-1.2-2.54,4.73-3.81,7.09-6.35,11.82-.78-.43-1.16-.65-1.93-1.1Z"/><path class="cls-1" d="M134.91,271.64c2.72-5.38,4.08-8.07,6.79-13.45.83.38,1.24.56,2.08.91-1.16,2.3-1.75,3.46-2.91,5.76,1.04.43,1.56.64,2.62,1.03,1.16-2.3,1.75-3.46,2.91-5.76.86.31,1.29.46,2.17.75-2.72,5.38-4.08,8.07-6.79,13.45-.87-.28-1.31-.43-2.17-.75,1.21-2.4,1.81-3.59,3.02-5.99-1.06-.39-1.59-.59-2.62-1.03-1.21,2.4-1.81,3.59-3.02,5.99-.84-.35-1.26-.53-2.08-.91Z"/><path class="cls-1" d="M54.56,204.59c2.87-5.32,4.31-7.98,7.19-13.3,1.13.44,1.69.68,2.79,1.19.6.28,1.06.62,1.38,1.02.32.4.52.82.61,1.27.09.45.09.91-.02,1.38-.11.47-.28.92-.51,1.35-.11.19-.16.29-.26.49-.2.36-.39.65-.57.87-.19.22-.39.39-.59.52-.39.24-.86.37-1.42.4.32.44.47.92.45,1.44s-.22,1.14-.61,1.85c-.16.3-.24.45-.4.75-.63,1.17-1.39,1.92-2.27,2.25-.88.34-1.92.19-3.15-.37-1.03-.47-1.55-.69-2.61-1.1ZM62.7,193.87c-.79,1.47-1.19,2.2-1.98,3.66.34.15.51.23.85.38.63.29,1.13.34,1.51.12.38-.21.74-.62,1.07-1.23.32-.6.45-1.11.37-1.52-.07-.42-.42-.78-1.05-1.06-.31-.14-.47-.21-.78-.35ZM59.81,199.22c-.92,1.7-1.38,2.56-2.3,4.26.33.14.49.22.82.37.38.18.71.26.98.25s.52-.08.74-.23c.22-.14.41-.35.58-.61.17-.26.35-.55.52-.88.18-.34.32-.64.42-.91.1-.27.15-.52.13-.74-.02-.23-.12-.44-.29-.62-.16-.18-.42-.35-.76-.51-.33-.15-.5-.23-.83-.38Z"/><path class="cls-1" d="M64.81,210.43c1.3-2.28,1.95-3.42,3.25-5.69.73-3.74,1.09-5.59,1.79-9.28.83.45,1.24.68,2.05,1.15-.61,2.5-.91,3.76-1.52,6.27.01,0,.02.01.04.02,1.83-1.76,2.74-2.64,4.56-4.39.79.52,1.18.78,1.96,1.32-2.78,2.41-4.18,3.62-6.98,6.08-1.3,2.28-1.95,3.42-3.25,5.69-.75-.48-1.13-.71-1.89-1.17Z"/></g></g></g>
+  <g id="Wave_top_left"><g><path class="cls-3" d="M75.06,187.83c31.92,6.13,66.58-4.67,98.87-8.13"/><path class="cls-3" d="M173.99,208.55c-20.3,2.13-41.41,7.27-62.22,9.26"/></g></g>
+  <g id="wave_top_right"><g><path class="cls-3" d="M302.87,187.83c-31.92,6.13-66.58-4.67-98.87-8.13"/><path class="cls-3" d="M203.95,208.55c20.3,2.13,41.41,7.27,62.22,9.26"/></g></g>
+  <g id="handle_right"><path class="cls-3" d="M199.92,55.67c.97,1.45,1.56,3.18,1.64,5.03,0,.15.01.31.01.46,0,.08,0,.16,0,.23,2.16,1.82,3.53,4.55,3.53,7.6,0,1.18-.2,2.31-.58,3.35,1.8,1.8,2.92,4.29,2.92,7.04,0,1.51-.34,2.94-.94,4.22,1.27,1.67,2.03,3.76,2.03,6.02,0,1.71-.43,3.32-1.19,4.73,1,1.55,1.58,3.39,1.58,5.37,0,1.87-.52,3.62-1.41,5.11.59,1.26.91,2.67.91,4.16,0,2.12-.67,4.09-1.8,5.7.3.94.46,1.94.46,2.98,0,2.18-.7,4.2-1.89,5.84.13.63.2,1.29.2,1.96,0,2.55-.96,4.87-2.54,6.63"/></g>
+  <g id="grip_8"><path class="cls-3" d="M173.47,123.24c8.78,4.11,20.98,3.56,29.36,8.88"/></g>
+  <g id="grip_7"><path class="cls-3" d="M171.14,112.53c9.62,5.84,25.67,4.19,34.46,10.38"/></g>
+  <g id="grip_6"><path class="cls-3" d="M171.33,102.11c10.07,6.44,25.82,3.96,35.41,12.44"/></g>
+  <g id="grip_5"><path class="cls-3" d="M171.14,91.29c10.27,6.81,27.45,4.21,37.22,13.74"/></g>
+  <g id="grip_4"><path class="cls-3" d="M171.56,81.27c10.24,6.66,26.76,3.6,36.44,13.43"/></g>
+  <g id="grip_3"><path class="cls-3" d="M173.33,72.37c9.85,5.16,24.78,3.02,33.92,11.54"/></g>
+  <g id="grip_2"><path class="cls-3" d="M176.09,63.73c8.73,3.46,20.94,2.9,29.23,8.87"/></g>
+  <g id="grip_1"><path class="cls-3" d="M178.89,55.99c6.99,2.13,16.24,2.37,23.24,5.64"/></g>
+  <g id="handle_left"><path class="cls-3" d="M175.94,132.12c-1.67-1.78-2.69-4.17-2.69-6.8,0-.72.08-1.41.22-2.08-1.52-1.75-2.44-4.03-2.44-6.52,0-1.49.33-2.91.92-4.18-1.13-1.61-1.79-3.58-1.79-5.7,0-1.78.47-3.44,1.28-4.88-.93-1.51-1.46-3.28-1.46-5.18,0-2.09.64-4.02,1.74-5.62-.48-1.17-.74-2.44-.74-3.78,0-2.08.64-4.01,1.73-5.6-.25-.87-.38-1.79-.38-2.73,0-2.29.77-4.4,2.07-6.08-.17-.73-.26-1.49-.26-2.28,0-2.58.99-4.94,2.6-6.71-.09-.53-.13-1.07-.13-1.62,0-2.57.98-4.91,2.58-6.68"/></g>
+  <g id="hand_guard"><rect class="cls-3" x="159.34" y="132.12" width="60.22" height="29.33" transform="translate(378.9 293.56) rotate(180)"/></g>
+  <g id="pommel"><path class="cls-3" d="M164.52,26.35h49.87v12.52c0,9.27-7.53,16.8-16.8,16.8h-16.26c-9.27,0-16.8-7.53-16.8-16.8v-12.52h0Z" transform="translate(378.9 82.02) rotate(-180)"/></g>
+  <g id="shield"><path class="cls-3" d="M378.22,144V1.48H1.48v142.52c.12,122.12,65.35,250.26,188.31,312.92,0,0,189.63-84.01,188.43-312.92Z"/></g>
+  <g id="sword_edge_top_right"><line class="cls-3" x1="204.9" y1="217.81" x2="204.9" y2="161.44"/></g>
+  <g id="sword_middle_base"><path class="cls-1" d="M190.45,245.25c-.07,0-1.32,135.05-1.52,134.91,0,0-1.45-134.91-1.45-134.91h2.97Z"/></g>
+  <g id="sword_middle_top"><line class="cls-2" x1="188.97" y1="176.98" x2="188.97" y2="216.34"/></g>
+  <g id="sword_edge_top_left"><line class="cls-3" x1="173.03" y1="161.44" x2="173.03" y2="218.66"/></g>
+  <g id="sword_v"><polyline class="cls-3" points="172.69 161.44 188.97 176.98 204.9 161.44"/></g>
+  <g id="sword_base"><path class="cls-3" d="M173.03,246.89v134.95c0,11.33,10.93,26.72,15.93,31.23,5.01-4.51,15.93-19.91,15.93-31.23v-135.11"/></g>
+  <g id="wave_base"><g><path class="cls-3" d="M228.8,251.85c-13.03-2.96-26.11-6.45-39.35-6.6-13.38.15-26.6,3.72-39.78,6.7"/><path class="cls-3" d="M118.69,227c23.5.77,46.87-10.23,70.76-10.65,23.56.42,46.62,11.12,69.78,10.68"/></g></g>
+  <g id="scroll_base_left_to_sword"><path class="cls-3" d="M173.99,302.71c-5.77-1.57-11.17-4.01-16.04-7.19"/></g>
+  <g id="scroll_under_2_left"><path class="cls-3" d="M71.74,228.4l-6.07,13.89c-20.99-9.18-35.11-23.26-31.53-31.45"/></g>
+  <g id="scroll_under_1_left"><path class="cls-3" d="M120.39,277.54l-6.58,16.14c21.22,8.65,42.25,10.1,44.53,1.01"/></g>
+  <g id="main_scroll_left"><path class="cls-3" d="M158.65,293.58c-45.87-13.68-58.75-31.18-70.12-46.62-9.75-13.24-18.17-24.68-53.99-37.41l12.09-34.04c46.25,16.44,59.96,35.06,70.98,50.03,9.54,12.96,17.07,23.2,51.35,33.42l-10.32,34.61Z"/></g>
+  <g id="scroll_base_base_right"><path class="cls-3" d="M264.83,293.73c-11.07,16.24-29.44,34.55-59.93,41.07"/></g>
+  <g id="scroll_base_right_to_sword"><path class="cls-3" d="M203.95,302.71c5.77-1.57,11.17-4.01,16.04-7.19"/></g>
+  <g id="scroll_under_2_right"><path class="cls-3" d="M306.2,228.4l6.07,13.89c20.99-9.18,35.11-23.26,31.53-31.45"/></g>
+  <g id="scroll_under_1_right"><path class="cls-3" d="M257.55,277.54l6.58,16.14c-21.22,8.65-42.25,10.1-44.53,1.01"/></g>
+  <g id="main_scroll_right"><path class="cls-3" d="M219.29,293.58c45.87-13.68,58.75-31.18,70.12-46.62,9.75-13.24,18.17-24.68,53.99-37.41l-12.09-34.04c-46.25,16.44-59.96,35.06-70.98,50.03-9.54,12.96-17.07,23.2-51.35,33.42l10.32,34.61Z"/></g>
+</svg>`;
+
+    /* ── badgeParts — draw-on sequence, replace for new projects ── */
+    const badgeParts = [
+      { id: 'shield',                     dl: 1650, dd: 0.0  },
+      { id: 'pommel',                      dl: 200,  dd: 0.6  },
+      { id: 'handle_left',                 dl: 600,  dd: 0.75 },
+      { id: 'handle_right',                dl: 600,  dd: 0.75 },
+      { id: 'grip_1',                      dl: 60,   dd: 0.9  },
+      { id: 'grip_2',                      dl: 60,   dd: 0.95 },
+      { id: 'grip_3',                      dl: 60,   dd: 1.0  },
+      { id: 'grip_4',                      dl: 60,   dd: 1.05 },
+      { id: 'grip_5',                      dl: 60,   dd: 1.1  },
+      { id: 'grip_6',                      dl: 60,   dd: 1.15 },
+      { id: 'grip_7',                      dl: 60,   dd: 1.2  },
+      { id: 'grip_8',                      dl: 60,   dd: 1.25 },
+      { id: 'hand_guard',                  dl: 200,  dd: 1.3  },
+      { id: 'sword_v',                     dl: 80,   dd: 1.45 },
+      { id: 'sword_edge_top_left',         dl: 80,   dd: 1.5  },
+      { id: 'sword_edge_top_right',        dl: 80,   dd: 1.5  },
+      { id: 'sword_middle_top',            dl: 60,   dd: 1.55 },
+      { id: 'sword_base',                  dl: 500,  dd: 1.6  },
+      { id: 'sword_middle_base',           dl: 0,    dd: 1.9,  isFill: true },
+      { id: 'wave_base',                   dl: 500,  dd: 1.8  },
+      { id: 'Wave_top_left',               dl: 300,  dd: 1.9  },
+      { id: 'wave_top_right',              dl: 300,  dd: 1.9  },
+      { id: 'main_scroll_left',            dl: 800,  dd: 2.0  },
+      { id: 'main_scroll_right',           dl: 800,  dd: 2.0  },
+      { id: 'scroll_under_1_left',         dl: 200,  dd: 2.15 },
+      { id: 'scroll_under_1_right',        dl: 200,  dd: 2.15 },
+      { id: 'scroll_under_2_left',         dl: 200,  dd: 2.2  },
+      { id: 'scroll_under_2_right',        dl: 200,  dd: 2.2  },
+      { id: 'scroll_base_left',            dl: 150,  dd: 2.25 },
+      { id: 'scroll_base_base_right',      dl: 150,  dd: 2.25 },
+      { id: 'scroll_base_left_to_sword',   dl: 100,  dd: 2.3  },
+      { id: 'scroll_base_right_to_sword',  dl: 100,  dd: 2.3  },
+      { id: 'motto',                       dl: 0,    dd: 2.5,  isFill: true },
+    ];
+
     const parser = new DOMParser();
-    const parsedSvg = parser.parseFromString(c.svgSource, 'image/svg+xml').documentElement;
+    const parsedSvg = parser.parseFromString(svgSource, 'image/svg+xml').documentElement;
     parsedSvg.classList.add('badge-svg');
 
-    /* Apply draw-on animation from badgeParts config */
-    (c.badgeParts || []).forEach(part => {
+    badgeParts.forEach(part => {
       const g = parsedSvg.querySelector('#' + part.id);
       if (!g) return;
       if (part.isFill) {
@@ -1318,7 +1543,7 @@ const CONFIG = {
     badgeWrap.appendChild(parsedSvg);
     diagram.appendChild(badgeWrap);
 
-    /* Callout list */
+    /* Callout list — label and desc from CONFIG */
     const calloutList = document.createElement('div');
     calloutList.className = 'callout-list';
     const floatEls = [];
@@ -1592,16 +1817,23 @@ const CONFIG = {
 
   /* Footer */
   const footer = el('footer');
+  const btt = document.createElement('button');
+  btt.id = 'back-to-top';
+  btt.setAttribute('aria-label', 'Back to top');
+  btt.innerHTML = `<svg viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"/></svg>`;
+  btt.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+  footer.appendChild(btt);
   footer.appendChild(el('span', 'footer-wordmark', CONFIG.wordmark));
   footer.appendChild(el('p', '', CONFIG.footerCaption));
   main.appendChild(footer);
 
   /* ══════════════════════════════════════════════════════
      SCROLL + VIDEO
-     Smooth scrub with fastSeek() where available (Chrome/Firefox).
-     rAF loop prevents jank by deferring currentTime writes
-     to the next animation frame instead of firing inline
-     on every scroll event.
+     rAF-batched seek: one write per animation frame max.
+     Direct currentTime assignment works in all browsers
+     including Safari. fastSeek() is excluded — it causes
+     Safari to drop to keyframe-only seeking which breaks
+     smooth scrubbing on short videos.
   ══════════════════════════════════════════════════════ */
   const video       = document.getElementById('bg-video');
   const progressBar = document.getElementById('progress-bar');
@@ -1614,18 +1846,15 @@ const CONFIG = {
   if (video.readyState >= 1) loading.classList.add('hidden');
   setTimeout(() => loading.classList.add('hidden'), 3000);
 
-  let rafPending    = false;
-  let targetTime    = 0;
-  let lastProgress  = -1;
+  let rafPending   = false;
+  let targetTime   = 0;
+  let lastProgress = -1;
 
   function applyVideoSeek() {
     rafPending = false;
     if (!video.duration || !isFinite(video.duration)) return;
-    const diff = Math.abs(video.currentTime - targetTime);
-    if (diff < 0.05) return;          /* skip tiny deltas — avoids Chrome jitter */
-    if (video.fastSeek) {
-      video.fastSeek(targetTime);     /* hardware-accelerated seek where available */
-    } else {
+    /* Only seek if delta is meaningful — avoids micro-jitter */
+    if (Math.abs(video.currentTime - targetTime) > 0.04) {
       video.currentTime = targetTime;
     }
   }
@@ -1635,7 +1864,6 @@ const CONFIG = {
     const scrollMax = document.body.scrollHeight - window.innerHeight;
     const progress  = Math.min(Math.max(scrollTop / scrollMax, 0), 1);
 
-    /* Batch UI updates */
     if (video.duration && isFinite(video.duration)) {
       targetTime = progress * video.duration;
       if (!rafPending) {
@@ -1661,16 +1889,32 @@ const CONFIG = {
   /* ── Lightbox ── */
   const lb      = document.getElementById('lightbox');
   const lbImg   = document.getElementById('lightbox-img');
-  const lbCount = document.getElementById('lightbox-count');
+  const lbDots  = document.getElementById('lightbox-dots');
   let current   = 0;
 
   function getItems() { return Array.from(document.querySelectorAll('.gallery-item')); }
+
+  function buildDots(count) {
+    lbDots.innerHTML = '';
+    for (let i = 0; i < count; i++) {
+      const d = document.createElement('span');
+      d.className = 'lb-dot' + (i === current ? ' active' : '');
+      d.addEventListener('click', () => showSlide(i));
+      lbDots.appendChild(d);
+    }
+  }
+
+  function updateDots() {
+    Array.from(lbDots.children).forEach((d, i) => {
+      d.classList.toggle('active', i === current);
+    });
+  }
 
   function openLightbox(i) {
     const items = getItems();
     current = i;
     lbImg.src = items[i].querySelector('img').src;
-    lbCount.textContent = (i + 1) + ' / ' + items.length;
+    buildDots(items.length);
     lb.classList.add('open');
     document.body.style.overflow = 'hidden';
   }
@@ -1684,7 +1928,7 @@ const CONFIG = {
     const items = getItems();
     current = (i + items.length) % items.length;
     lbImg.src = items[current].querySelector('img').src;
-    lbCount.textContent = (current + 1) + ' / ' + items.length;
+    updateDots();
   }
 
   document.addEventListener('click', e => {
@@ -1760,6 +2004,36 @@ const CONFIG = {
       revealObserver.observe(el);
     });
   });
+
+  /* ── Hamburger / mobile menu ── */
+  const hamburger    = document.getElementById('hamburger');
+  const mobileMenu   = document.getElementById('mobile-menu');
+  const menuClose    = document.getElementById('mobile-menu-close');
+  const menuNav      = document.getElementById('mobile-menu-nav');
+
+  /* Build mobile nav from CONFIG */
+  const mLinks = [];
+  if (CONFIG.nav.prev && CONFIG.nav.prev.url)
+    mLinks.push({ label: '← ' + CONFIG.nav.prev.label, url: CONFIG.nav.prev.url });
+  if (CONFIG.nav.index)
+    mLinks.push({ label: 'All Work', url: CONFIG.nav.index });
+  if (CONFIG.nav.next && CONFIG.nav.next.url)
+    mLinks.push({ label: CONFIG.nav.next.label + ' →', url: CONFIG.nav.next.url });
+
+  mLinks.forEach(link => {
+    const a = document.createElement('a');
+    a.href = link.url;
+    a.textContent = link.label;
+    a.addEventListener('click', closeMenu);
+    menuNav.appendChild(a);
+  });
+
+  function openMenu() { mobileMenu.classList.add('open'); document.body.style.overflow = 'hidden'; }
+  function closeMenu() { mobileMenu.classList.remove('open'); document.body.style.overflow = ''; }
+
+  if (hamburger) hamburger.addEventListener('click', openMenu);
+  if (menuClose) menuClose.addEventListener('click', closeMenu);
+  mobileMenu.addEventListener('click', e => { if (e.target === mobileMenu) closeMenu(); });
   </script>
 
 </body>

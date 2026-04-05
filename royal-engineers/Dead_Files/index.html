@@ -23,7 +23,6 @@
       overflow-x: hidden;
     }
 
-    /* ── Video stage ── */
     #video-stage {
       position: fixed; inset: 0;
       width: 100vw; height: 100vh; z-index: 0;
@@ -43,7 +42,6 @@
       pointer-events: none;
     }
 
-    /* ── Progress bar ── */
     #progress-bar {
       position: fixed; top: 0; left: 0;
       height: 2px; width: 0%;
@@ -51,7 +49,6 @@
       z-index: 100; transition: width 0.05s linear;
     }
 
-    /* ── HUD ── */
     #hud { position: fixed; inset: 0; pointer-events: none; z-index: 50; }
 
     #hud-bar {
@@ -66,7 +63,9 @@
       pointer-events: all;
     }
 
-    .caption-top { margin-left: auto; }
+    .caption-top {
+      margin-left: auto;
+    }
 
     #hud-bar.scrolled {
       background: rgba(10,10,15,0.6);
@@ -74,17 +73,24 @@
       border-bottom-color: rgba(200,169,110,0.1);
     }
 
+    /* Prev / next nav in HUD */
     .hud-nav {
-      display: flex; align-items: center;
-      gap: 0.75rem; pointer-events: all;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      pointer-events: all;
     }
 
     .hud-nav a {
-      display: flex; align-items: center;
+      display: flex;
+      align-items: center;
       gap: 0.5rem;
-      font-size: 0.58rem; letter-spacing: 0.2em;
-      text-transform: uppercase; color: var(--muted);
-      text-decoration: none; transition: color 0.2s;
+      font-size: 0.58rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
       padding: 0.3rem 0;
     }
 
@@ -92,20 +98,27 @@
 
     .hud-nav a svg {
       width: 12px; height: 12px;
-      stroke: currentColor; fill: none;
-      stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 1.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
       flex-shrink: 0;
     }
 
     .hud-nav-sep {
-      width: 1px; height: 12px;
+      width: 1px;
+      height: 12px;
       background: rgba(200,169,110,0.2);
     }
 
     .hud-nav-index {
-      font-size: 0.55rem; letter-spacing: 0.2em;
-      text-transform: uppercase; color: rgba(200,169,110,0.4);
-      text-decoration: none; transition: color 0.2s;
+      font-size: 0.55rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(200,169,110,0.4);
+      text-decoration: none;
+      transition: color 0.2s;
       pointer-events: all;
     }
 
@@ -154,7 +167,6 @@
       50%       { transform: rotate(45deg) translate(4px,4px); opacity: 0.5; }
     }
 
-    /* ── Layout ── */
     #scroll-content { position: relative; z-index: 10; }
 
     #hero {
@@ -171,12 +183,14 @@
 
     #hero h1::before {
       content: attr(data-text);
-      position: absolute; inset: 0;
-      color: rgba(0,0,0,.75);
+      position: absolute;
+      inset: 0;
+      color: rgba(0, 0, 0, .75);
       filter: blur(10px) brightness(0);
       opacity: 1;
       transform: translateY(6px) scaleY(0.98);
-      z-index: -1; pointer-events: none;
+      z-index: -1;
+      pointer-events: none;
     }
 
     #hero p {
@@ -185,12 +199,13 @@
       letter-spacing: 0.3em; text-transform: uppercase; color: var(--accent);
       background: rgba(10,10,15,0.5);
       backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
-      padding: 0.45rem 1.2rem; border-radius: 1px;
+      padding: 0.45rem 1.2rem;
+      border-radius: 1px;
     }
 
     .content-section { padding: 7rem 0; }
 
-    .section-inner { max-width: 1000px; margin: 0 auto; padding: 0 3rem; }
+    .section-inner { max-width: 1100px; margin: 0 auto; padding: 0 3rem; }
 
     .text-block {
       background: rgba(10,10,15,0.55);
@@ -226,22 +241,32 @@
       color: var(--cream); margin-bottom: 1rem;
     }
 
-    /* ── Stats ── */
     .stat-row {
       display: grid; grid-template-columns: repeat(3,1fr);
       gap: 2rem; margin-top: 3rem;
       border-top: 1px solid rgba(200,169,110,0.12); padding-top: 3rem;
     }
 
-    .stat { display: flex; flex-direction: column; align-items: flex-start; gap: 0.75rem; }
+    .stat {
+      display: flex; flex-direction: column; align-items: flex-start; gap: 0.75rem;
+    }
 
-    .stat-icon { width: 48px; height: 48px; margin-bottom: 0.25rem; }
+    .stat-icon {
+      width: 48px; height: 48px;
+      margin-bottom: 0.25rem;
+    }
 
-    .stat-icon svg { width: 100%; height: 100%; overflow: visible; }
+    .stat-icon svg {
+      width: 100%; height: 100%;
+      overflow: visible;
+    }
 
     .stat-icon svg path, .stat-icon svg circle, .stat-icon svg line, .stat-icon svg polyline {
-      fill: none; stroke: var(--accent); stroke-width: 1.5;
-      stroke-linecap: round; stroke-linejoin: round;
+      fill: none;
+      stroke: var(--accent);
+      stroke-width: 1.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
       stroke-dasharray: var(--dash-len, 200);
       stroke-dashoffset: var(--dash-len, 200);
       transition: stroke-dashoffset 0.8s cubic-bezier(0.4, 0, 0.2, 1);
@@ -250,7 +275,9 @@
     .stat.fired .stat-icon svg path,
     .stat.fired .stat-icon svg circle,
     .stat.fired .stat-icon svg line,
-    .stat.fired .stat-icon svg polyline { stroke-dashoffset: 0; }
+    .stat.fired .stat-icon svg polyline {
+      stroke-dashoffset: 0;
+    }
 
     .stat h4 {
       font-family: 'Bebas Neue', sans-serif;
@@ -270,7 +297,6 @@
 
     .stat.fired p { opacity: 1; transform: translateY(0); }
 
-    /* ── Text + Image ── */
     .text-image-right, .text-image-left {
       display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center;
     }
@@ -286,7 +312,6 @@
 
     .text-image-left .ti-image { order: -1; }
 
-    /* ── Fullbleed ── */
     .section-fullbleed { padding: 7rem 0; }
 
     .fullbleed-wrap { position: relative; max-width: 1100px; margin: 0 auto; padding: 0 3rem; }
@@ -304,7 +329,6 @@
       padding: 0.4rem 0.8rem; border-radius: 1px;
     }
 
-    /* ── Pull quote ── */
     .pull-quote { padding: 0.5rem 0; max-width: 900px; margin: 0 auto; }
 
     .pull-quote blockquote {
@@ -320,7 +344,6 @@
       text-transform: uppercase; color: var(--accent); font-style: normal;
     }
 
-    /* ── Gallery ── */
     .gallery-section { padding: 7rem 0; }
 
     .gallery-inner { max-width: 1200px; margin: 0 auto; padding: 0 3rem; }
@@ -349,7 +372,6 @@
 
     .gallery-item:hover::after { background: rgba(10,10,15,0.25); }
 
-    /* ── Lightbox ── */
     #lightbox {
       position: fixed; inset: 0; z-index: 300;
       background: rgba(10,10,15,0.95); backdrop-filter: blur(16px);
@@ -385,7 +407,6 @@
       font-size: 0.65rem; letter-spacing: 0.22em; color: var(--muted);
     }
 
-    /* ── Timeline ── */
     .timeline-section { padding: 7rem 0; }
 
     .timeline-inner { max-width: 1100px; margin: 0 auto; padding: 0 3rem; }
@@ -402,7 +423,7 @@
       display: flex; align-items: center; justify-content: center;
       font-family: 'Bebas Neue', sans-serif; font-size: 0.85rem;
       letter-spacing: 0.1em; color: var(--accent); flex-shrink: 0;
-      background: rgba(10,10,15,0.8); backdrop-filter: blur(4px);
+      /*background: rgba(10,10,15,0.8); backdrop-filter: blur(4px);*/
     }
 
     .timeline-line {
@@ -423,7 +444,6 @@
     .timeline-content .step-image { margin-top: 1.5rem; max-width: 580px; }
     .timeline-content .step-image img { width: 100%; border-radius: 2px; display: block; }
 
-    /* ── Footer ── */
     footer {
       background: rgba(10,10,15,0.75);
       backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
@@ -443,7 +463,6 @@
       text-transform: uppercase; color: var(--muted);
     }
 
-    /* ── Loading ── */
     #loading {
       position: fixed; inset: 0; background: var(--dark);
       display: flex; flex-direction: column;
@@ -467,259 +486,28 @@
       text-transform: uppercase; color: var(--muted);
     }
 
-    /* ── Annotated / Badge diagram section ── */
-    .annotated-section { padding: 7rem 0; }
-
-    .annotated-inner { max-width: 1100px; margin: 0 auto; padding: 0 3rem; }
-
-    .annotated-block {
-      background: rgba(10,10,15,0.52);
-      backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
-      border: 1px solid rgba(200,169,110,0.1);
-      border-radius: 2px;
-      padding: 3.5rem 4rem 4rem;
-      position: relative;
-      overflow: hidden;
+    @media (max-width: 768px) {
+      .two-col, .text-image-right, .text-image-left { grid-template-columns: 1fr; gap: 2rem; }
+      .three-col { grid-template-columns: 1fr; }
+      .text-image-left .ti-image { order: 0; }
+      .gallery-grid { columns: 2; }
+      .text-block { padding: 2.5rem 2rem; }
+      .caption-top { display: none; }
+      #progress-pct { bottom: 1.5rem; right: 1.5rem; }
+      #hud-bar { padding: 1.5rem; }
     }
-
-    .badge-ghost {
-      position: absolute; right: -4%; top: 50%;
-      transform: translateY(-50%); width: 52%;
-      opacity: 0.05; mix-blend-mode: screen;
-      pointer-events: none; user-select: none;
-    }
-
-    .badge-ghost img { width: 100%; height: auto; display: block; }
-
-    .annotated-label {
-      font-size: 0.65rem; letter-spacing: 0.35em;
-      text-transform: uppercase; color: var(--accent);
-      margin-bottom: 3rem;
-    }
-
-    .annotated-diagram { display: flex; align-items: flex-start; gap: 3rem; }
-
-    .badge-svg-wrap { position: relative; flex: 0 0 42%; max-width: 320px; }
-
-    .badge-svg-wrap svg.badge-svg {
-      width: 100%; height: auto; display: block;
-      filter: drop-shadow(0 0 50px rgba(200,169,110,0.08));
-    }
-
-    .callout-list {
-      flex: 1; display: flex; flex-direction: column;
-      gap: 1.8rem; padding-right: 4rem; min-width: 0;
-    }
-
-    .callout-float {
-      opacity: 0; transform: translateX(8px);
-      transition: opacity 0.45s ease, transform 0.45s ease;
-    }
-
-    .callout-float.visible { opacity: 1; transform: translateX(0); }
-
-    .callout-float-label {
-      font-family: 'DM Sans', sans-serif;
-      font-size: .85rem; letter-spacing: 0.36em;
-      color: rgb(200,169,110); line-height: 1.1;
-      margin-bottom: 0.3rem; text-transform: uppercase;
-    }
-
-    .callout-float-desc { font-size: 0.88rem; line-height: 1.65; color: rgba(245,240,232,0.45); }
-
-    .badge-svg .draw-stroke {
-      fill: none; stroke: #f5f0e8;
-      stroke-dasharray: var(--dl, 2000);
-      stroke-dashoffset: var(--dl, 2000);
-      transition: stroke-dashoffset 0.9s cubic-bezier(0.4, 0, 0.2, 1);
-      transition-delay: var(--dd, 0s);
-    }
-
-    .badge-svg .draw-fill {
-      opacity: 0; transition: opacity 0.7s ease;
-      transition-delay: var(--dd, 0s);
-    }
-
-    .badge-svg.drawn .draw-stroke { stroke-dashoffset: 0; }
-    .badge-svg.drawn .draw-fill   { opacity: 1; }
-
-    .badge-svg g[data-highlight-group] {
-      transition: opacity 0.3s ease, filter 0.3s ease;
-    }
-
-    /* ── Panel sections ── */
-    .panel-section { padding: 7rem 0; position: relative; z-index: 10; }
-
-    .panel-inner { max-width: 1100px; margin: 0 auto; padding: 0 3rem; }
-
-    .panel-label {
-      font-size: 0.65rem; letter-spacing: 0.35em;
-      text-transform: uppercase; color: var(--accent);
-      display: block; margin-bottom: 1.2rem;
-    }
-
-    .panel-heading {
-      font-family: 'Bebas Neue', sans-serif;
-      line-height: 0.92; letter-spacing: 0.04em; color: var(--cream);
-    }
-
-    .panel-body { font-size: 1rem; line-height: 1.85; color: var(--muted); font-weight: 300; }
-
-    .panel-rule {
-      border: none; border-top: 1px solid rgba(245,240,232,0.12); margin: 4rem 0;
-    }
-
-    /* Panel A — Royal Navy */
-    .rn-panel .panel-heading { font-size: clamp(3rem, 7vw, 6rem); margin-bottom: 2rem; }
-    .rn-panel .panel-body    { max-width: 68ch; margin-bottom: 4rem; }
-
-    .rn-badge-primary  { display: flex; justify-content: center; padding: 0 60px; }
-    .rn-badge-primary img  { width: 100%; max-width: 520px; height: auto; display: block; }
-
-    .rn-symmetry-label {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 1.8rem; letter-spacing: 0.1em;
-      color: var(--cream); text-align: center;
-      display: block; margin-bottom: 1rem;
-    }
-
-    .rn-symmetry-caption {
-      font-size: 0.85rem; font-weight: 300;
-      color: var(--muted); text-align: center;
-      display: block; margin-bottom: 3rem;
-    }
-
-    .rn-badge-secondary { display: flex; justify-content: center; padding: 0 120px; }
-    .rn-badge-secondary img { width: 100%; max-width: 360px; height: auto; display: block; }
-
-    /* Panel B — SBS */
-    .sbs-panel .panel-heading { font-size: clamp(3rem, 7vw, 6rem); margin-bottom: 3rem; }
-
-    .sbs-image-wrap { width: 100%; margin-bottom: 2.5rem; }
-    .sbs-image-wrap img { width: 100%; height: auto; display: block; }
-
-    .sbs-captions { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0; }
-
-    .sbs-caption-col {
-      display: flex; flex-direction: column;
-      align-items: center; gap: 0.6rem; padding: 0 1rem;
-    }
-
-    .sbs-caption-col__label {
-      font-size: 0.65rem; letter-spacing: 0.35em;
-      text-transform: uppercase; color: var(--accent); text-align: center;
-    }
-
-    .sbs-caption-col__text {
-      font-size: 0.9rem; font-weight: 300;
-      color: var(--muted); text-align: center; line-height: 1.55;
-    }
-
-    /* Panel C — HQCOMFOR */
-    .hq-intro {
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: 4rem; align-items: start; margin-bottom: 5rem;
-    }
-
-    .hq-intro-text { display: flex; flex-direction: column; }
-    .hq-intro-text .panel-heading { font-size: clamp(2.5rem, 5vw, 5rem); margin-bottom: 1.5rem; }
-
-    .hq-intro-badge { display: flex; justify-content: center; }
-    .hq-intro-badge img { width: 100%; max-width: 320px; height: auto; display: block; }
-
-    .hq-section-heading {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 1.8rem; letter-spacing: 0.1em;
-      color: var(--cream); text-align: center; margin-bottom: 3rem;
-    }
-
-    .hq-row { display: grid; grid-template-columns: repeat(3,1fr); margin-bottom: 5rem; }
-
-    .hq-item { display: flex; flex-direction: column; align-items: center; }
-
-    .hq-item__image-wrap { display: flex; align-items: center; justify-content: center; margin-bottom: 1.5rem; }
-
-    .hq-components .hq-item__image-wrap { height: 200px; }
-    .hq-components .hq-item__image-wrap img { max-height: 180px; max-width: 90px; width: auto; height: auto; display: block; }
-
-    .hq-colourways .hq-item__image-wrap { height: 175px; }
-    .hq-colourways .hq-item__image-wrap img { max-height: 155px; max-width: 155px; width: auto; height: auto; display: block; }
-
-    .hq-item__label {
-      font-size: 0.65rem; letter-spacing: 0.35em;
-      text-transform: uppercase; color: var(--muted); text-align: center;
-    }
-
-    .hq-palette { display: flex; flex-direction: column; align-items: center; gap: 1rem; }
-    .hq-palette__dots { display: flex; gap: 0.6rem; }
-
-    .palette-dot { width: 28px; height: 28px; border-radius: 50%; display: block; }
-    /* Edit to match actual palette */
-    .dot-1 { background: #e05a38; }
-    .dot-2 { background: #2e7d4e; }
-    .dot-3 { background: #3d5faa; }
-    .dot-4 { background: #60b8d4; }
-
-    .hq-palette__label {
-      font-size: 0.65rem; letter-spacing: 0.35em;
-      text-transform: uppercase; color: rgba(245,240,232,0.32);
-    }
-
-    /* Panel D — Software */
-    .sw-panel { display: flex; flex-direction: column; align-items: center; gap: 3rem; }
-
-    .sw-panel__label {
-      font-size: 0.65rem; letter-spacing: 0.35em;
-      text-transform: uppercase; color: var(--accent);
-    }
-
-    .sw-panel__logos {
-      width: 100%; display: flex;
-      justify-content: space-evenly; align-items: center;
-      flex-wrap: wrap; gap: 2rem 0;
-    }
-
-    .sw-logo { display: flex; align-items: center; gap: 0.7rem; }
-
-    .sw-logo__icon {
-      height: 26px; width: auto; display: block;
-      filter: brightness(0) invert(1); opacity: 0.85;
-    }
-
-    .sw-logo__name {
-      font-family: 'DM Sans', sans-serif;
-      font-size: 1.25rem; font-weight: 400;
-      color: var(--cream); letter-spacing: 0.01em;
-      white-space: nowrap; opacity: 0.85;
-    }
-
-    .sw-panel__caption {
-      font-size: 0.9rem; font-weight: 300;
-      color: var(--muted); text-align: center;
-      max-width: 68ch; line-height: 1.65;
-    }
-
-    /* ── Panel image / logo reveals ── */
-    .panel-section img {
-      opacity: 0; transform: translateY(20px);
-      transition: opacity 0.7s ease, transform 0.7s ease;
-    }
-
-    .sw-logo {
-      opacity: 0;
-      transition: opacity 0.7s ease, transform 0.7s ease;
-    }
-
-    .panel-section img.visible,
-    .sw-logo.visible { opacity: 1; transform: translateY(0); }
 
     /* ── Scroll reveal ── */
     .reveal {
-      opacity: 0; transform: translateY(28px);
+      opacity: 0;
+      transform: translateY(28px);
       transition: opacity 0.75s ease, transform 0.75s ease;
     }
 
-    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
 
     .gallery-item.reveal { transition-duration: 0.6s; }
     .gallery-item.reveal:nth-child(2) { transition-delay: 0.08s; }
@@ -735,150 +523,6 @@
     .timeline-content.reveal:nth-child(6)  { transition-delay: 0.15s; }
     .timeline-content.reveal:nth-child(8)  { transition-delay: 0.20s; }
     .timeline-content.reveal:nth-child(10) { transition-delay: 0.25s; }
-
-    /* ════════════════════════════════════════════
-       RESPONSIVE — Tablet  ≤ 900px
-    ════════════════════════════════════════════ */
-    @media (max-width: 900px) {
-      /* HUD */
-      .caption-top { display: none; }
-      #hud-bar { padding: 1.5rem 2rem; gap: 1.5rem; }
-      #progress-pct { bottom: 1.5rem; right: 1.5rem; }
-
-      /* Sections */
-      .content-section { padding: 5rem 0; }
-      .section-inner { padding: 0 2rem; }
-      .text-block { padding: 2.5rem 2rem; }
-
-      /* Grids → single column */
-      .two-col { grid-template-columns: 1fr; gap: 2rem; }
-      .three-col { grid-template-columns: 1fr; }
-
-      /* Text+Image: stack, image below text */
-      .text-image-right,
-      .text-image-left { grid-template-columns: 1fr; gap: 2rem; }
-
-      /* Both variants: image always goes after text on mobile */
-      .text-image-right .ti-image,
-      .text-image-left .ti-image { order: 1; }
-      .text-image-right .ti-text,
-      .text-image-left .ti-text  { order: 0; }
-
-      /* Image fills width at tablet */
-      .text-image-right .ti-image img,
-      .text-image-left .ti-image img { aspect-ratio: 4/3; }
-
-      /* Fullbleed */
-      .fullbleed-wrap { padding: 0 1rem; }
-      .fullbleed-wrap img { max-height: 60vh; }
-
-      /* Timeline */
-      .timeline-inner { padding: 0 2rem; }
-      .timeline-track { grid-template-columns: 48px 1fr; gap: 0 1.5rem; }
-      .timeline-content .step-image { max-width: 100%; }
-
-      /* Gallery → 2 col */
-      .gallery-grid { columns: 2; }
-      .gallery-inner { padding: 0 2rem; }
-
-      /* Stats → 2 col */
-      .stat-row { grid-template-columns: repeat(2,1fr); }
-
-      /* Pull quote */
-      .pull-quote { padding: 0; }
-      .pull-quote blockquote { padding-left: 1.5rem; }
-      .pull-quote cite { padding-left: 1.5rem; }
-
-      /* Annotated */
-      .annotated-inner { padding: 0 2rem; }
-      .annotated-block { padding: 2.5rem 2rem; }
-      .annotated-diagram { flex-direction: column; }
-      .badge-svg-wrap { flex: none; width: 70%; max-width: none; margin: 0 auto; }
-      .callout-list { padding-right: 0; }
-      .callout-float { opacity: 1; transform: none; }
-
-      /* Panels */
-      .hq-intro { grid-template-columns: 1fr; gap: 2.5rem; }
-      .hq-intro-badge { justify-content: flex-start; }
-      .hq-row { grid-template-columns: repeat(2, 1fr); gap: 1.5rem; margin-bottom: 3rem; }
-      .sbs-captions { grid-template-columns: 1fr; gap: 1.5rem; }
-      .rn-badge-primary { padding: 0 20px; }
-      .rn-badge-secondary { padding: 0 40px; }
-    }
-
-    /* ════════════════════════════════════════════
-       RESPONSIVE — Mobile  ≤ 540px
-    ════════════════════════════════════════════ */
-    @media (max-width: 540px) {
-      /* HUD — tighten further */
-      #hud-bar { padding: 1.2rem 1.2rem; gap: 1rem; }
-      .wordmark { font-size: 1.2rem; }
-      .hud-nav a { font-size: 0.5rem; letter-spacing: 0.12em; }
-
-      /* Hero */
-      #hero h1 { font-size: clamp(3.5rem, 16vw, 6rem); }
-      #hero p { font-size: 0.68rem; letter-spacing: 0.2em; padding: 0.4rem 0.9rem; }
-
-      /* Sections */
-      .content-section { padding: 4rem 0; }
-      .section-inner { padding: 0 1.2rem; }
-      .text-block { padding: 2rem 1.5rem; }
-
-      /* Images edge-to-edge on mobile */
-      .text-image-right .ti-image img,
-      .text-image-left .ti-image img {
-        aspect-ratio: 16/9;
-        border-radius: 0;
-        margin: 0 -1.5rem;
-        width: calc(100% + 3rem);
-      }
-
-      /* Fullbleed truly full-bleed */
-      .fullbleed-wrap { padding: 0; }
-      .fullbleed-wrap img { border-radius: 0; max-height: 50vh; }
-      .fullbleed-caption { right: 0.75rem; bottom: 0.75rem; }
-
-      /* Timeline spine — tighten */
-      .timeline-inner { padding: 0 1.2rem; }
-      .timeline-track { grid-template-columns: 40px 1fr; gap: 0 1rem; }
-      .timeline-node { width: 30px; height: 30px; font-size: 0.7rem; }
-
-      /* Gallery → 1 col */
-      .gallery-grid { columns: 1; }
-      .gallery-inner { padding: 0 1.2rem; }
-      .gallery-section { padding: 4rem 0; }
-
-      /* Stats → 1 col */
-      .stat-row { grid-template-columns: 1fr; }
-
-      /* Annotated */
-      .annotated-inner { padding: 0 1.2rem; }
-      .annotated-block { padding: 2rem 1.5rem; }
-      .badge-svg-wrap { width: 90%; }
-      .callout-list { gap: 1.2rem; }
-      .badge-ghost { display: none; }
-
-      /* Panels */
-      .hq-row { grid-template-columns: 1fr; }
-      .hq-components .hq-item__image-wrap { height: auto; padding: 1rem 0; }
-      .hq-colourways .hq-item__image-wrap { height: auto; padding: 1rem 0; }
-      .sbs-captions { grid-template-columns: 1fr; gap: 1.2rem; }
-      .rn-badge-primary { padding: 0; }
-      .rn-badge-secondary { padding: 0 20px; }
-      .sw-panel__logos { gap: 1.5rem 0; justify-content: center; }
-
-      /* Pull quote */
-      .pull-quote blockquote { font-size: clamp(1.8rem, 7vw, 2.5rem); padding-left: 1.2rem; }
-      .pull-quote cite { padding-left: 1.2rem; }
-
-      /* Footer */
-      footer { padding: 4rem 1.5rem; }
-      footer .footer-wordmark { font-size: 2.5rem; }
-
-      /* Lightbox nav — easier to tap */
-      #lightbox-prev { left: 0.75rem; padding: 0.5rem 0.75rem; }
-      #lightbox-next { right: 0.75rem; padding: 0.5rem 0.75rem; }
-    }
   </style>
 </head>
 <body>
@@ -890,14 +534,14 @@
 const CONFIG = {
 
   /* ── Identity ── */
-  title:    "Orbit",
-  wordmark: "Orbit",
-  caption:  "3D Visualisation · 2024",
+  title:    "Royal Engineers",
+  wordmark: "Royal Engineers",
+  caption:  "2D to 3D · Process Study",
 
   /* ── Hero ── */
-  heroLine1: "De Oppresso",
-  heroLine2: "Liber",
-  heroSub:   "Special Forces · Insignia Study · 2024",
+  heroLine1: "Royal",
+  heroLine2: "Engineers",
+  heroSub:   "Illustrator · Photoshop · AI · An End-to-End Study",
 
   /* ── Video (relative path) ── */
   video: "video.mp4",
@@ -907,74 +551,66 @@ const CONFIG = {
     pullQuote:  true,
     intro:      true,
     textImageR: true,
-    fullbleed:  true,
+    fullbleed:  false,
     timeline:   true,
-    textImageL: true,
-    annotated:  false,
+    textImageL: false,
     gallery:    true,
-    stats:      true,
-  },
-
-  panels: {
-    badgeSheet:  false,   // Panel A — Royal Navy cap badge
-    sbsVariants: false,   // Panel B — SBS badge variants
-    hqComfor:    false,   // Panel C — HQ Commando Forces
-    software:    true,    // Panel D — software credits (enable on all pages)
+    stats:      false,
   },
 
   /* ── Content ── */
   content: {
 
-    pullQuote: "Every mark carries the weight of what came before it — the question is whether you understand that weight before you start designing.",
-    pullQuoteCite: "On the brief",
+    pullQuote: "The badge was the subject. The process was the point.",
+    pullQuoteCite: "On the project",
 
     intro: {
-      chapter: "Chapter 01 — The Brief",
+      chapter: "Chapter 01 The Concept",
       showChapter: true,
-      heading: "A Commission With Weight",
-      body: "The brief was to create a series of detailed 3D renders of US Special Forces insignia — pieces loaded with history, symbolism, and material specificity. Getting the metal right, the embroidery right, the light right. Not decoration. Documentation.",
+      heading: "Showing the Work",
+      body: "Most portfolios show finished things. This project was designed to show the journey, specifically the full pipeline from 2D vector to photorealistic 3D render using Illustrator, Photoshop and AI. The Royal Engineers badge was chosen as the subject: a complex, demanding piece of heraldry that would test every stage of the process. The badge is excellent. The method is the story.",
     },
 
     textImageR: {
       showChapter: false,
-      heading: "Starting With the Real Thing",
-      body: "Reference photography was shot across multiple angles and lighting conditions — raking light to reveal surface texture, diffuse light to read colour accurately. The physical object had to be understood before the digital one could begin.",
-      image: "images/placeholder.jpg",
-      imageAlt: "Reference image",
+      heading: "Ubique",
+      body: "The Royal Engineers is one of the most distinctive badges in the British Army, and deliberately chosen. If the process works here, it works anywhere.",
+      image: "images/RE4.webp",
+      imageAlt: "Royal Engineers badge vector",
     },
 
     fullbleed: {
-      image: "images/placeholder.jpg",
-      caption: "Surface study",
+      image: "images/RE3.webp",
+      caption: "Ubique — the finished render",
     },
 
     timeline: {
-      chapter: "Chapter 02 — Process",
+      chapter: "Chapter 02 The Pipeline",
       showChapter: true,
-      heading: "How It Was Made",
+      heading: "2D to 3D",
       steps: [
         {
           n: "01",
-          title: "Reference & Research",
-          body: "Collected physical reference, archival photography, and material specifications.",
+          title: "Vector in Illustrator",
+          body: "The badge built from scratch as a precision vector in Adobe Illustrator. Every element; the crown, the cypher, the garter, constructed geometrically and referenced against archival sources for accuracy.",
           image: null,
         },
         {
           n: "02",
-          title: "Vector Construction",
-          body: "Base geometry built from measured drawings. Each element modelled separately then assembled.",
-          image: "images/placeholder.jpg",
+          title: "Preparation in Photoshop",
+          body: "The vector exported and prepared in Photoshop, layers organised, elements separated for independent depth treatment, textures and material reference gathered. The bridge stage between flat graphic and three-dimensional object.",
+          image: "images/RE2.webp",
         },
         {
           n: "03",
-          title: "3D & Materials",
-          body: "Material development — base specularity, edge wear, micro-scratching, and patina in the recesses.",
-          image: "images/placeholder.jpg",
+          title: "3D Generation via AI",
+          body: "The prepared artwork taken into AI-assisted 3D generation, the 2D vector interpreted as a physical object with correct depth, relief, and material properties. The most recent addition to the workflow, and the most transformative.",
+          image: "images/RE.webp",
         },
         {
           n: "04",
           title: "Final Render",
-          body: "Final renders shot with a three-point setup mimicking the reference photography.",
+          body: "The generated 3D model rendered with production lighting, the end result of the full pipeline, from a flat vector to a photorealistic physical object.",
           image: null,
         },
       ],
@@ -982,69 +618,46 @@ const CONFIG = {
 
     textImageL: {
       showChapter: false,
-      heading: "The Detail That Earns Trust",
-      body: "Clients and viewers who know the subject well will notice the things you got right — and the things you didn't. That scrutiny is the standard the work was built to meet.",
-      image: "images/placeholder.jpg",
-      imageAlt: "Final render detail",
-    },
-
-    annotated: {
-      chapter: "Chapter XX — The Insignia",
-      showChapter: true,
-      heading: "Anatomy of the Badge",
-      body: "Every element carries deliberate meaning.",
-      /* ghostImage: path to the ghost badge behind the panel */
-      ghostImage: "images/placeholder.jpg",
-      callouts: [
-        { id: 'shield',  ax: 0.5, ay: 0.5, label: "Shield",  desc: "The outer form — describe its significance here." },
-        { id: 'sword',   ax: 0.5, ay: 0.7, label: "Dagger",  desc: "The central device — describe here." },
-      ],
-      /* svgSource: paste your inline SVG string here (see SBS index.html for reference) */
-      svgSource: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="40" fill="none" stroke="#f5f0e8" stroke-width="2"/></svg>`,
-      /* badgeParts: array of { id, dl, dd, isFill? } for draw-on animation */
-      badgeParts: [],
+      heading: "",
+      body: "",
+      image: "",
+      imageAlt: "",
     },
 
     gallery: {
       label: "Full Series",
       heading: "All Renders",
       images: [
-        "images/placeholder.jpg",
+        "images/RE.webp",
+        "images/RE3.webp",
+        "images/RE5.webp",
+        "images/RE2.webp",
+        "images/RE4.webp",
+        
       ],
     },
 
     stats: {
-      chapter: "Chapter 03 — Scope",
+      chapter: "Chapter 03 The Pipeline",
       showChapter: true,
-      heading: "By The Numbers",
-      body: "A focused project with a clear brief. Every number below reflects a decision, not an accident.",
+      heading: "The Tools",
+      body: "hree tools, one pipeline. The process documented end to end — from the first anchor point in Illustrator to the final render.",
       items: [
-        { value: "9", label: "Final renders delivered",  icon: "aperture" },
-        { value: "4", label: "Lighting setups explored", icon: "light"    },
-        { value: "3", label: "Material iterations",      icon: "layers"   },
-      ],
-    },
-
-    software: {
-      caption: "Vector work produced in Adobe Illustrator. 3D photorealistic renders generated with Luma AI. Research and design iteration assisted by Gemini and Claude. No AI is utilised in Adobe Illustrator — all vectors are hand drawn.",
-      /* logos: array of { src, name } — src is path to logo image */
-      logos: [
-        { src: "images/AdobeLogo.png",  name: "" },
-        { src: "images/Luma Logo.png",  name: "" },
-        { src: "images/GeminiLogo.png", name: "" },
-        { src: "images/ClaudeLogo.png", name: "" },
+        { value: "3", label: "Tools in the pipeline",  icon: "pen" },
+        { value: "4", label: "Stages documented", icon: "frame"    },
+        { value: "1", label: "Process, fully shown",      icon: "diamond"   },
       ],
     },
 
   },
 
   /* ── Footer ── */
-  footerCaption: "3D Visualisation · Insignia · © Jason 2026",
+  footerCaption: "Royal Engineers · 2D to 3D · Process Study · © JASON STONE 2026",
 
   /* ── Navigation ── */
   nav: {
     index: "../index.html",
-    prev:  { label: null, url: null },
+    prev:  { label: "SBS", url: "../sbs/index.html" },
     next:  { label: null, url: null },
   },
 
@@ -1262,96 +875,6 @@ const CONFIG = {
     appendSection(makeTextBlock([ti], c.showChapter, c.chapter));
   }
 
-  /* Annotated / Badge diagram */
-  if (CONFIG.sections.annotated) {
-    const c = CONFIG.content.annotated;
-    const s = document.createElement('section');
-    s.className = 'annotated-section';
-    const ai = document.createElement('div');
-    ai.className = 'annotated-inner';
-    const ab = document.createElement('div');
-    ab.className = 'annotated-block';
-
-    if (c.showChapter && c.chapter) ab.appendChild(el('p', 'annotated-label', c.chapter));
-
-    /* Ghost badge background */
-    if (c.ghostImage) {
-      const ghost = document.createElement('div');
-      ghost.className = 'badge-ghost';
-      ghost.innerHTML = `<img src="${c.ghostImage}" alt="">`;
-      ab.appendChild(ghost);
-    }
-
-    const diagram = document.createElement('div');
-    diagram.className = 'annotated-diagram';
-
-    /* Badge SVG */
-    const badgeWrap = document.createElement('div');
-    badgeWrap.className = 'badge-svg-wrap';
-
-    const parser = new DOMParser();
-    const parsedSvg = parser.parseFromString(c.svgSource, 'image/svg+xml').documentElement;
-    parsedSvg.classList.add('badge-svg');
-
-    /* Apply draw-on animation from badgeParts config */
-    (c.badgeParts || []).forEach(part => {
-      const g = parsedSvg.querySelector('#' + part.id);
-      if (!g) return;
-      if (part.isFill) {
-        g.querySelectorAll('path,rect,line,polyline,polygon').forEach(el => {
-          el.classList.add('draw-fill');
-          el.style.setProperty('--dd', part.dd + 's');
-        });
-      } else {
-        g.querySelectorAll('path,rect,line,polyline,polygon').forEach(el => {
-          el.classList.add('draw-stroke');
-          el.style.setProperty('--dl', part.dl);
-          el.setAttribute('stroke-dasharray', part.dl);
-          el.setAttribute('stroke-dashoffset', part.dl);
-          el.style.setProperty('--dd', part.dd + 's');
-        });
-      }
-    });
-
-    badgeWrap.appendChild(parsedSvg);
-    diagram.appendChild(badgeWrap);
-
-    /* Callout list */
-    const calloutList = document.createElement('div');
-    calloutList.className = 'callout-list';
-    const floatEls = [];
-    c.callouts.forEach((co, i) => {
-      const floatEl = document.createElement('div');
-      floatEl.className = 'callout-float';
-      floatEl.style.transitionDelay = (0.08 * i) + 's';
-      floatEl.innerHTML = `<div class="callout-float-label">${co.label}</div><div class="callout-float-desc">${co.desc}</div>`;
-      calloutList.appendChild(floatEl);
-      floatEls.push(floatEl);
-    });
-
-    diagram.appendChild(calloutList);
-    ab.appendChild(diagram);
-    ai.appendChild(ab);
-    s.appendChild(ai);
-    main.appendChild(s);
-
-    /* IntersectionObserver: draw badge then reveal labels */
-    const badgeObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (!entry.isIntersecting) return;
-        parsedSvg.classList.add('drawn');
-        setTimeout(() => {
-          floatEls.forEach((floatEl, i) => {
-            setTimeout(() => floatEl.classList.add('visible'), i * 220);
-          });
-        }, 2700);
-        badgeObserver.unobserve(entry.target);
-      });
-    }, { threshold: 0.2 });
-
-    badgeObserver.observe(badgeWrap);
-  }
-
   /* Gallery */
   if (CONFIG.sections.gallery) {
     const c    = CONFIG.content.gallery;
@@ -1441,9 +964,11 @@ const CONFIG = {
       const st   = el('div', 'stat');
       st.dataset.target = item.value;
       st.dataset.delay  = idx * 150;
+
       const iconWrap = el('div', 'stat-icon');
       iconWrap.innerHTML = ICONS[item.icon] || ICONS.diamond;
       st.appendChild(iconWrap);
+
       const num = el('h4', '', '0');
       num.dataset.countTo = item.value;
       st.appendChild(num);
@@ -1454,153 +979,13 @@ const CONFIG = {
     appendSection(makeTextBlock([tc, sr], c.showChapter, c.chapter));
   }
 
-  /* ── Panels ── */
-  const P = CONFIG.panels || {};
-
-  if (P.badgeSheet) {
-    const s = el('section', 'panel-section');
-    const i = el('div', 'section-inner text-block rn-panel');
-    i.innerHTML = `
-      <span class="panel-label">Full Colour</span>
-      <h2 class="panel-heading">Royal Navy<br>Officers Cap Badge</h2>
-      <p class="panel-body">
-        The fouled anchor — a navigational anchor entangled with its own rope — has been the
-        central device of Royal Navy officer insignia since the eighteenth century. Redrawn
-        entirely from reference, rebuilt as clean vector in Illustrator, then rendered with
-        gilded metal materials.
-      </p>
-      <div class="rn-badge-primary">
-        <img src="images/RNOfficerbadge.png" alt="Royal Navy Officers Cap Badge — full colour" loading="lazy">
-      </div>
-      <hr class="panel-rule">
-      <span class="rn-symmetry-label">Symmetry</span>
-      <span class="rn-symmetry-caption">
-        The open laurel wreath form — showing the full radial spread of the device.
-      </span>
-      <div class="rn-badge-secondary">
-        <img src="images/RN_POBadge.png" alt="Royal Navy Officers Cap Badge — closed wreath" loading="lazy">
-      </div>
-      <br><br>
-      <span class="rn-symmetry-caption">
-        The re-designed Chief Petty Officers Cap Badge device.
-      </span>
-    `;
-    s.appendChild(i); main.appendChild(s);
-  }
-
-  if (P.sbsVariants) {
-    const s = el('section', 'panel-section');
-    const i = el('div', 'section-inner text-block sbs-panel');
-    i.innerHTML = `
-      <span class="panel-label">Full Colour</span>
-      <h2 class="panel-heading">Badge Variants</h2>
-      <div class="sbs-image-wrap">
-        <img src="images/SBS_Badges.webp" alt="SBS badge variants — olive drab, full colour, line work" loading="lazy">
-      </div>
-      <div class="sbs-captions">
-        <div class="sbs-caption-col">
-          <span class="sbs-caption-col__label">Olive Drab</span>
-          <p class="sbs-caption-col__text">Subdued field version</p>
-        </div>
-        <div class="sbs-caption-col">
-          <span class="sbs-caption-col__label">Full Colour</span>
-          <p class="sbs-caption-col__text">Dress uniform version</p>
-        </div>
-        <div class="sbs-caption-col">
-          <span class="sbs-caption-col__label">Line Work</span>
-          <p class="sbs-caption-col__text">Technical drawing version</p>
-        </div>
-      </div>
-    `;
-    s.appendChild(i); main.appendChild(s);
-  }
-
-  if (P.hqComfor) {
-    const s = el('section', 'panel-section');
-    const i = el('div', 'section-inner text-block hq-panel');
-    i.innerHTML = `
-      <div class="hq-intro">
-        <div class="hq-intro-text">
-          <span class="panel-label">Full Colour</span>
-          <h2 class="panel-heading">HQ Commando<br>Forces</h2>
-          <p class="panel-body">
-            Commissioned whilst working at the MOD embedded with the Royal Navy.
-            The brief called for a new badge for HQ Commando Forces — unifying the
-            lightning bolt, commando dagger and naval trident beneath the King's Crown.
-          </p>
-        </div>
-        <div class="hq-intro-badge">
-          <img src="images/badge-hq.png" alt="HQ Commando Forces badge" loading="lazy">
-        </div>
-      </div>
-      <div class="hq-components">
-        <h3 class="hq-section-heading">Components</h3>
-        <div class="hq-row">
-          <div class="hq-item"><div class="hq-item__image-wrap"><img src="images/component-lightning.png" alt="Lightning" loading="lazy"></div><span class="hq-item__label">Lightning</span></div>
-          <div class="hq-item"><div class="hq-item__image-wrap"><img src="images/component-dagger.png" alt="Commando Dagger" loading="lazy"></div><span class="hq-item__label">Commando Dagger</span></div>
-          <div class="hq-item"><div class="hq-item__image-wrap"><img src="images/component-trident.png" alt="Trident" loading="lazy"></div><span class="hq-item__label">Trident</span></div>
-        </div>
-      </div>
-      <div class="hq-colourways">
-        <h3 class="hq-section-heading">Shield Colour Ways</h3>
-        <div class="hq-row">
-          <div class="hq-item"><div class="hq-item__image-wrap"><img src="images/shield-colourway-1.png" alt="Shield colourway 1" loading="lazy"></div><span class="hq-item__label">Full Colour</span></div>
-          <div class="hq-item"><div class="hq-item__image-wrap"><img src="images/shield-colourway-2.png" alt="Shield colourway 2" loading="lazy"></div><span class="hq-item__label">Full Colour</span></div>
-          <div class="hq-item"><div class="hq-item__image-wrap"><img src="images/shield-colourway-3.png" alt="Shield colourway 3" loading="lazy"></div><span class="hq-item__label">Full Colour</span></div>
-        </div>
-      </div>
-      <div class="hq-palette">
-        <div class="hq-palette__dots">
-          <span class="palette-dot dot-1"></span>
-          <span class="palette-dot dot-2"></span>
-          <span class="palette-dot dot-3"></span>
-          <span class="palette-dot dot-4"></span>
-        </div>
-        <span class="hq-palette__label">Colour Palette</span>
-      </div>
-    `;
-    s.appendChild(i); main.appendChild(s);
-  }
-
-  if (P.software) {
-    const c = CONFIG.content.software || {};
-    const logos = c.logos || [
-      { src: "images/AdobeLogo.png",  name: "" },
-      { src: "images/Luma Logo.png",  name: "" },
-      { src: "images/GeminiLogo.png", name: "" },
-      { src: "images/ClaudeLogo.png", name: "" },
-    ];
-    const caption = c.caption || "Vector work produced in Adobe Illustrator. 3D renders generated with Luma AI. Research assisted by Claude.";
-
-    const s = el('section', 'panel-section');
-    const i = el('div', 'section-inner text-block sw-panel');
-    const logoHTML = logos.map(l =>
-      `<div class="sw-logo">
-        <img class="sw-logo__icon" src="${l.src}" alt="${l.name}">
-        <span class="sw-logo__name">${l.name}</span>
-      </div>`
-    ).join('');
-    i.innerHTML = `
-      <span class="sw-panel__label">Software / Apps</span>
-      <div class="sw-panel__logos">${logoHTML}</div>
-      <p class="sw-panel__caption">${caption}</p>
-    `;
-    s.appendChild(i); main.appendChild(s);
-  }
-
   /* Footer */
   const footer = el('footer');
   footer.appendChild(el('span', 'footer-wordmark', CONFIG.wordmark));
   footer.appendChild(el('p', '', CONFIG.footerCaption));
   main.appendChild(footer);
 
-  /* ══════════════════════════════════════════════════════
-     SCROLL + VIDEO
-     Smooth scrub with fastSeek() where available (Chrome/Firefox).
-     rAF loop prevents jank by deferring currentTime writes
-     to the next animation frame instead of firing inline
-     on every scroll event.
-  ══════════════════════════════════════════════════════ */
+  /* ── Scroll + video ── */
   const video       = document.getElementById('bg-video');
   const progressBar = document.getElementById('progress-bar');
   const scrollCue   = document.getElementById('scroll-cue');
@@ -1612,43 +997,17 @@ const CONFIG = {
   if (video.readyState >= 1) loading.classList.add('hidden');
   setTimeout(() => loading.classList.add('hidden'), 3000);
 
-  let rafPending    = false;
-  let targetTime    = 0;
-  let lastProgress  = -1;
-
-  function applyVideoSeek() {
-    rafPending = false;
-    if (!video.duration || !isFinite(video.duration)) return;
-    const diff = Math.abs(video.currentTime - targetTime);
-    if (diff < 0.05) return;          /* skip tiny deltas — avoids Chrome jitter */
-    if (video.fastSeek) {
-      video.fastSeek(targetTime);     /* hardware-accelerated seek where available */
-    } else {
-      video.currentTime = targetTime;
-    }
-  }
-
   function onScroll() {
     const scrollTop = window.scrollY;
     const scrollMax = document.body.scrollHeight - window.innerHeight;
     const progress  = Math.min(Math.max(scrollTop / scrollMax, 0), 1);
-
-    /* Batch UI updates */
     if (video.duration && isFinite(video.duration)) {
-      targetTime = progress * video.duration;
-      if (!rafPending) {
-        rafPending = true;
-        requestAnimationFrame(applyVideoSeek);
-      }
+      const target = progress * video.duration;
+      if (Math.abs(video.currentTime - target) > 0.01) video.currentTime = target;
     }
-
-    if (progress !== lastProgress) {
-      video.style.opacity = 1 - (progress * 0.9);
-      progressBar.style.width = (progress * 100) + '%';
-      pct.textContent = Math.round(progress * 100) + '%';
-      lastProgress = progress;
-    }
-
+    video.style.opacity = 1 - (progress * 0.9);
+    progressBar.style.width = (progress * 100) + '%';
+    pct.textContent = Math.round(progress * 100) + '%';
     scrollCue.style.opacity = scrollTop > 40 ? '0' : '1';
     hudBar.classList.toggle('scrolled', scrollTop > 40);
   }
@@ -1742,6 +1101,7 @@ const CONFIG = {
     });
   }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
 
+  // Observe after sections are built
   requestAnimationFrame(() => {
     document.querySelectorAll(
       '.text-block, .ti-image img, .fullbleed-wrap img, .step-image img, .gallery-item, .timeline-content, .pull-quote'
@@ -1750,13 +1110,6 @@ const CONFIG = {
       revealObserver.observe(el);
     });
     document.querySelectorAll('.stat').forEach(st => statObserver.observe(st));
-
-    /* Panel image + logo reveals */
-    document.querySelectorAll('.panel-section img, .sw-logo').forEach((el, i) => {
-      el.style.transitionDelay = (i % 4 * 0.12) + 's';
-      el.classList.add('reveal');
-      revealObserver.observe(el);
-    });
   });
   </script>
 
