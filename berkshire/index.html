@@ -338,12 +338,16 @@
       text-transform: uppercase; color: var(--accent); margin-bottom: 0.75rem;
     }
 
-    .gallery-grid { columns: 3; column-gap: 0; }
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(var(--gallery-cols, 3), 1fr);
+  gap: 0;
+}
 
-    .gallery-item {
-      break-inside: avoid; margin-bottom: 0;
-      position: relative; overflow: hidden; cursor: pointer;
-    }
+.gallery-item {
+  break-inside: unset; margin-bottom: 0;
+  position: relative; overflow: hidden; cursor: pointer;
+}
 
     .gallery-item img { width: 100%; display: block; transition: transform 0.5s ease; }
     .gallery-item:hover img { transform: scale(1.03); }
@@ -890,7 +894,7 @@
       .fullbleed-wrap img { max-height: 60vh; }
 
       /* Gallery → 2 col */
-      .gallery-grid { columns: 2; }
+      .gallery-grid { --gallery-cols: 2; }
 
       /* Stats → 2 col */
       .stat-row { grid-template-columns: repeat(2,1fr); }
@@ -977,7 +981,7 @@
       .text-image-left .ti-image img { aspect-ratio: 16/9; border-radius: 2px; }
 
       /* Gallery → 1 col */
-      .gallery-grid { columns: 1; }
+      .gallery-grid { --gallery-cols: 1; }
 
       /* Stats → 1 col */
       .stat-row { grid-template-columns: 1fr; }
@@ -1589,6 +1593,7 @@ const CONFIG = {
     gh.appendChild(el('h2', '', c.heading));
     gi.appendChild(gh);
     const grid = el('div', 'gallery-grid');
+    if (c.images.length < 3) grid.style.setProperty('--gallery-cols', c.images.length.toString());
     c.images.forEach((src, i) => {
       const item = el('div', 'gallery-item');
       item.dataset.index = i;
