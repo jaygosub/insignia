@@ -1012,6 +1012,22 @@
       #lightbox-prev { left: 0.25rem; }
       #lightbox-next { right: 0.25rem; }
     }
+
+    /* Mobile video fallback — poster image shown instead of video */
+#mobile-poster { display: none; }
+
+@media (max-width: 900px) {
+  #bg-video { display: none; }
+  #mobile-poster {
+    display: block;
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+    background-image: url('images/poster.jpg'); /* ← change to your still */
+    background-size: cover;
+    background-position: center;
+    opacity: 0.45; /* match the faded-out feel of the video at scroll start */
+  }
+}
   </style>
 </head>
 <body>
@@ -1195,6 +1211,7 @@ const CONFIG = {
 
   <div id="video-stage">
     <video id="bg-video" muted playsinline preload="auto"></video>
+<div id="mobile-poster"></div>
   </div>
 
   <div id="hud">
@@ -1863,7 +1880,7 @@ const CONFIG = {
     const scrollMax = document.body.scrollHeight - window.innerHeight;
     const progress  = Math.min(Math.max(scrollTop / scrollMax, 0), 1);
 
-    if (video.duration && isFinite(video.duration)) {
+    if (video.duration && isFinite(video.duration) && video.offsetParent !== null) {
       targetTime = progress * video.duration;
       if (!rafPending) {
         rafPending = true;
